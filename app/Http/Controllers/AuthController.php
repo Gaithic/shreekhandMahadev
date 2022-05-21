@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterFormValidation;
+use App\Models\Circle;
+use App\Models\District;
+use App\Models\Division;
+use App\Models\OfficesName;
+use App\Models\Range;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +19,21 @@ class AuthController extends Controller
     }
 
     public function registerView(){
-        return view('auth.register')->with('success', "Create your account");
+        $offices = OfficesName::all();
+        $dist_id = District::where('id', 0)->get();
+        $districts = District::all();
+        $circles = Circle::all();
+        $divisions = Division::all();
+        $ranges =   Range::all();
+        // dd($dist_id);
+        return view('auth.register', [
+            'districts' =>$dist_id,
+            'offices' => $offices,
+            'districts' => $districts,
+            'circles' => $circles,
+            'divisions' => $divisions,
+            'ranges' => $ranges
+        ])->with('success', "Create your account");
     }
 
     public function saveRegisterUser(RegisterFormValidation $request){
@@ -44,5 +63,17 @@ class AuthController extends Controller
             return redirect()->intended(route('regiter-view'))->with('error', 'Oops Something Went Wrong Kindly try after sometime!');
         }
 
+    }
+
+    public function loginView(){
+        return view('auth.login');
+    }
+
+    public function getCircles(Request $request){
+        $parent_id  = $request->dist_id;
+        $circles = District::where('id', $parent_id)->with('circles')->get();
+        return response()->json([
+            'circles' => $circles
+        ]);
     }
 }

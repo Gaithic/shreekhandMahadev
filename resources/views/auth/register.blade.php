@@ -96,6 +96,10 @@
     
                       <div class="form-outline">
                         <select type="text" id="office" name="office" class="form-control form-control-lg" >
+                          <option value="">Select Your Office</option>
+                          @foreach ($offices as $office)
+                             <option value="{{ $office->id }}">{{ $office->officeName }}</option>
+                          @endforeach
                         </select>
                         <label class="form-label" for="firstName">Select Office Name</label>
                       </div>
@@ -116,6 +120,10 @@
     
                         <div class="form-outline">
                             <select type="text" id="district" name="district" class="form-control form-control-lg" >
+                              <option value="">Select Your District</option>
+                              @foreach ($districts as $district)
+                                  <option value="{{ $district->id }}">{{ $district->districtName }}</option>
+                              @endforeach
                             </select>
                             <label class="form-label" for="firstName">Select District Name</label>
                         </div>
@@ -138,6 +146,8 @@
     
                       <div class="form-outline">
                         <select type="text" id="circle" name="circle" class="form-control form-control-lg" >
+                          <option value="">Select Your Circle Area</option>
+                          
                         </select>
                         <label class="form-label" for="firstName">Select Circle Name</label>
                       </div>
@@ -158,6 +168,7 @@
     
                         <div class="form-outline">
                             <select type="text" id="division" name="division" class="form-control form-control-lg" >
+                              <option value="">Select Your Division Area</option>
                             </select>
                             <label class="form-label" for="Division">Select Division Name</label>
                         </div>
@@ -180,6 +191,7 @@
     
                       <div class="form-outline">
                         <select type="text" id="range" name="range" class="form-control form-control-lg" >
+                          <option value="">Select Your Range Area</option>
                         </select>
                         <label class="form-label" for="Range">Select Range Name</label>
                       </div>
@@ -224,9 +236,6 @@
                       <label for="Qualification" class="form-label">Your Qualification</label>
                     </div>
                   </div>
-                  <div style="margin: 5px;">
-                    <span id="qualificationError"  style="color: red; font-size:15px; font-weight:700;" ></span>
-                </div>
                   @error('qualification')
                   <div class="alert alert-danger" role="alert">
                       <small>
@@ -234,30 +243,35 @@
                       </small>
                   </div>
                   @enderror
+                  <div style="margin: 5px;">
+                    <span id="qualificationError"  style="color: red; font-size:15px; font-weight:700;" ></span>
+                </div>
+                <div class="form-outline">
+                  <select type="text" id="gender" name="gender" class="form-control form-control-lg" >
+                      <option value="" >Select</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                  </select>
+                  <label class="form-label" for="firstName">Select Gender</label>
+              </div>
+              <div style="margin: 5px;">
+                  <span id="genderError"  style="color: red; font-size:15px; font-weight:700;" ></span>
+              </div>
+
+
+                  @error('gender')
+                  <div class="alert alert-danger" role="alert">
+                      <small>
+                          <strong >{{ $message }}</strong>
+                      </small>
+                  </div>
+                  @enderror
+
+              </div>
+                 
                   
                   <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                        <select type="text" id="gender" name="gender" class="form-control form-control-lg" >
-                            <option value="" >Select</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                        <label class="form-label" for="firstName">Select Gender</label>
-                    </div>
-                    <div style="margin: 5px;">
-                        <span id="genderError"  style="color: red; font-size:15px; font-weight:700;" ></span>
-                    </div>
-
-
-                        @error('gender')
-                        <div class="alert alert-danger" role="alert">
-                            <small>
-                                <strong >{{ $message }}</strong>
-                            </small>
-                        </div>
-                        @enderror
-  
-                  </div>
+                
                 </div>
   
                 <div class="row">
@@ -366,4 +380,41 @@
       </div>
     </div>
   </section>
+  <script >
+     $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $(document).ready(function () {
+        $('#district').on('change',function(e) {
+            var dist_id = e.target.value;
+            $.ajax({
+                url:"{{ route('get-circle') }}",
+                // type:"POST",
+                data: {
+                    dist_id : dist_id
+                },
+                success:function (data) {
+                    $('#circle').empty();
+                    $.each(data.circles[0].circles,function(index,circles){
+                        $('#circle').append('<option value="'+circles.id+'">'+circles.circleName+'</option>');
+                    })
+
+                    $('#division').empty();
+                        $.each(data.divisions[0].divisions, function(index, divisions){
+                        $('#division').append('<option value="'+divisions.id+'">'+divisions.division+'</option>');
+                    })
+                    $('#range').empty();
+                    $.each(data.ranges[0].ranges, function(index, ranges){
+                        $('#range').append('<option value="'+ranges.id+'">'+ranges.ranges+'</option>');
+                    })
+                }
+
+
+
+            })
+        });
+    });
+</script>
 @endsection
