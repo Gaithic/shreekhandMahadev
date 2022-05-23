@@ -25,7 +25,7 @@ class RegisterFormValidation extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|email|unique:email',
+            'email' => 'required|unique:email|email',
             'contact' => 'required|integer|min:10|max:10',
             'designation' => 'required',
             'date_of_birth' => 'required',

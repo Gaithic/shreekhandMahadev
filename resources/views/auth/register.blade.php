@@ -9,7 +9,7 @@
           <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
             <div class="card-body p-4 ">
               <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-              <form action=""  onsubmit="return validateForm()" method="post">
+              <form action="{{route('save-register-users')}}"  onsubmit="return validateForm()" method="post">
                 @csrf
                 <div class="row">
                   <div class="col-md-6 mb-4">

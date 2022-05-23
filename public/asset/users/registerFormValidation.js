@@ -176,16 +176,16 @@ function validateForm(){
 
 
     if(email==''){
-        document.getElementById('emailError').innerHTML=" ** Please Enter @Email";
+        document.getElementById('emailError').innerHTML="Please Enter @Email";
         return false;
     }
     else if((email.indexOf('@')<=0)){
-      document.getElementById('emailError').innerHTML=" ** Invalid Index of @";
+      document.getElementById('emailError').innerHTML="Invalid Index of @";
       return false;
 
     }
     else if(email.charAt(email.length-4)!='.' && email.charAt(email.length-3)){
-      document.getElementById('emailError').innerHTML=" ** Invalid Email.";
+      document.getElementById('emailError').innerHTML="Invalid Email.";
       return false;
 
     }else{

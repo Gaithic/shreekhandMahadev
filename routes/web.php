@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AuthController::class, 'mainView'])->name('/');
 Route::get('/user-register', [AuthController::class, 'registerView'])->name('user-register');
-Route::post('/save-register-user', [AuthController::class, 'saveRegisterUser'])->name('save-users');
+Route::post('/save/register/user', [AuthController::class, 'saveRegisterUser '])->name('save-register-users');
 Route::get('/login/page', [AuthController::class, 'loginView'])->name('login-page');
 Route::get('/get-circle', [AuthController::class, 'getCircle'])->name('ajax-circle');
 Route::get('/get-ranges', [AuthController::class, 'getRanges'])->name('ajax-ranges');

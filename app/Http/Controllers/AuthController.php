@@ -70,32 +70,7 @@ class AuthController extends Controller
 
 
     public function saveRegisterUser(RegisterFormValidation $request){
-        $user = new User();
-        $user->name = $request->name;
-        $user->designation = $request->designation;
-        $user->date_of_birth = $request->date_of_birth;
-        $user->date_of_joining = $request->date_of_joining;
-        $user->office = $request->office;
-        $user->district = $request->district;
-        $user->range = $request->range;
-        $user->gender = $request->gender;
-        $user->circle = $request->circle;
-        $user->division = $request->division;
-        $user->office_address = $request->office_address;
-        $user->qualification = $request->qualification;
-        $user->username = trim(strtolower($request->username));
-        $user->password = Hash::make($request->password);
-        $user->email = $request->email;
-        $user->contact = $request->contact;
-        $user->isadmin  = 0;
-        $user->status = 0;
-        $res = $user->save();
-        if($res){
-            return redirect()->intended(route('login-view'))->with('success', 'Your account is created Kindly Wait for Admin Approval!!');
-        }else{
-            return redirect()->intended(route('register-view'))->with('error', 'Oops Something Went Wrong Kindly try after sometime!');
-        }
-
+        
     }
 
     public function loginView(){
