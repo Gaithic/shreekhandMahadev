@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Division extends Model
 {
-    use HasFactory;
+    public function ranges()
+    {
+        return $this->hasMany(Range::class, 'division_id');
+    }
 }

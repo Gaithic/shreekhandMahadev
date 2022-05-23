@@ -1,3 +1,5 @@
+const { isNumber } = require("lodash");
+
 function validateForm(){
     const name = document.getElementById('name').value;
     const designation = document.getElementById('designation').value;
@@ -12,13 +14,14 @@ function validateForm(){
     const qualification = document.getElementById('qualification').value;
     const gender = document.getElementById('gender').value;
     const email = document.getElementById('email').value;
-    const contact = document.getElementById('contact').value;
     const username = document.getElementById('username').value;
+    const contact = document.getElementById('contact').value;
     const password = document.getElementById('password').value;
     const cPassword = document.getElementById('confirm_password').value;
     const hackSafe = /[\\\/:*?<>|]+/;
     var ifString = /^[A-Za-z ]+$/;
     var ifNumber = /[1-9]/;
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     //name input validation
 
@@ -124,13 +127,136 @@ function validateForm(){
         }
     }
 
-    // input validation for office_address input field
+    // input validation for office input field
     if(office==''){
         document.getElementById('officeError').innerHTML= "Office Address is required";
         return false;
     }else{
         document.getElementById('officeError').innerHTML= "";
 
+    }
+
+    //input validation for office address input field
+    if(office_address==""){
+        document.getElementById('addressError').innerHTML= "Office Name is required";
+        return false;
+    }else{
+        if(hackSafe.test(office_address)){
+            document.getElementById('addressError').innerHTML= "Special Characters are not allowed!!";
+            return false;
+        }else{
+            document.getElementById('addressError').innerHTML= "";
+        }
+    }
+
+    //input validation for qualification field
+    if(qualification==""){
+        document.getElementById('qualificationError').innerHTML= "Qualification field is required";
+        return false;
+    }else{
+        if(hackSafe.test(qualification)){
+            document.getElementById('qualificationError').innerHTML= "Special Character's are not allowed!!";
+            return false;
+        }else{
+            document.getElementById('qualificationError').innerHTML= "";
+        }
+    }
+
+    //input validation for gender field
+
+    if(gender==""){
+        document.getElementById('genderError').innerHTML= "Please Select Gender!!";
+        return false;
+    }else{
+        document.getElementById('genderError').innerHTML= "";
+    }
+
+    //input validation for email
+
+
+
+    if(email==''){
+        document.getElementById('emailError').innerHTML=" ** Please Enter @Email";
+        return false;
+    }
+    else if((email.indexOf('@')<=0)){
+      document.getElementById('emailError').innerHTML=" ** Invalid Index of @";
+      return false;
+
+    }
+    else if(email.charAt(email.length-4)!='.' && email.charAt(email.length-3)){
+      document.getElementById('emailError').innerHTML=" ** Invalid Email.";
+      return false;
+
+    }else{
+        document.getElementById('emailError').innerHTML="";
+    }
+  //contact field input validation
+
+    if(contact==''){
+        document.getElementById('contactError').innerHTML=" ** Please Enter Valid contact number";
+        return false;
+    }else{
+        document.getElementById('contactError').innerText = "";
+    }
+
+    if(isNaN(contact)){
+        document.getElementById('contactError').innerHTML=" ** Must write numbers not characters";
+        return false;
+
+    }else{
+        document.getElementById('contactError').innerText = "";
+    }
+
+    if(contact.length!=10){
+        document.getElementById('contactError').innerHTML=" ** Number length should be 10";
+        return false;
+
+    }else{
+        document.getElementById('contactError').innerText = "";
+    }
+
+
+
+    //input field sanitize for username
+
+    if(username==""){
+        document.getElementById('usernameError').innerHTML = "user Name required";
+        return false
+    }else{
+        if(hackSafe.test(username)){
+            document.getElementById('usernameError').innerHTML = "Special Character's are not allowed";
+        }else{
+
+            document.getElementById('usernameError').innerHTML = "";
+        }
+    }
+
+
+    //password and confirm password
+
+    if(password==''){
+        document.getElementById('passwordError').innerHTML = "Password is required!!";
+        return false;
+    }else{
+        document.getElementById('passwordError').innerHTML = "";
+    }
+
+
+    if(cPassword==''){
+        document.getElementById('cPasswordError').innerHTML = "kindly confirm  your password";
+        return false;
+    }else{
+        document.getElementById('passwordError').innerHTML = "";
+    }
+
+
+    //match password and confirm password
+    if(password!=cPassword){
+        document.getElementById('cPasswordError').innerHTML = "Password is not match";
+        return false;
+    }else{
+        document.getElementById('passwordError').innerHTML = "";
     }
 
 

@@ -7,7 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class District extends Model
 {
-    public function circles(){
-        return $this->hasMany(Circle::class, 'id');
+    public function circles()
+    {
+        return $this->hasMany(Circle::class, 'district_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -9,7 +9,7 @@
           <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
             <div class="card-body p-4 ">
               <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-              <form action="{{ route('save-users') }}"  onsubmit="return validateForm()" method="post">
+              <form action=""  onsubmit="return validateForm()" method="post">
                 @csrf
                 <div class="row">
                   <div class="col-md-6 mb-4">
@@ -278,7 +278,7 @@
                   <div class="col-md-6 mb-4 pb-2">
 
                     <div class="form-outline">
-                      <input type="email" id="email" name="email" class="form-control form-control-lg" />
+                      <input type="text" id="email" name="email" class="form-control form-control-lg" />
                       <label class="form-label" for="emailAddress">Email</label>
                     </div>
                     <div style="margin: 5px;">
@@ -297,8 +297,8 @@
                   <div class="col-md-6 mb-4 pb-2">
 
                     <div class="form-outline">
-                      <input type="tel" id="contact" name="contact" class="form-control form-control-lg" />
-                      <label class="form-label" for="phoneNumber">Phone Number</label>
+                      <input type="text" id="contact" name="contact" class="form-control form-control-lg" />
+                      <label class="form-label" for="phoneNumber">Mobile Number</label>
                     </div>
                     <div style="margin: 5px;">
                         <span id="contactError"  style="color: red; font-size:15px; font-weight:700;" ></span>
@@ -319,13 +319,13 @@
                     <div class="col-md-6 mb-4 pb-2">
 
                       <div class="form-outline">
-                        <input type="email" id="username" name="username" class="form-control form-control-lg" />
+                        <input type="text" id="username" name="username" class="form-control form-control-lg" />
                         <label class="form-label" for="emailAddress">User Name</label>
                       </div>
                       <div style="margin: 5px;">
                         <span id="usernameError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                     </div>
-                      @error('email')
+                      @error('username')
                       <div class="alert alert-danger" role="alert">
                           <small>
                               <strong >{{ $message }}</strong>
@@ -381,19 +381,18 @@
     </div>
   </section>
   <script >
-     $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
-      }
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
     $(document).ready(function () {
         $('#district').on('change',function(e) {
             var dist_id = e.target.value;
             $.ajax({
-                url:"{{ route('get-circle') }}",
-                // type:"POST",
+                url:"{{ route('ajax-circle') }}",
                 data: {
-                    dist_id : dist_id
+                    dist_id: dist_id
                 },
                 success:function (data) {
                     $('#circle').empty();
@@ -403,16 +402,31 @@
 
                     $('#division').empty();
                         $.each(data.divisions[0].divisions, function(index, divisions){
-                        $('#division').append('<option value="'+divisions.id+'">'+divisions.division+'</option>');
+                        $('#division').append('<option value="'+divisions.id+'">'+divisions.divisionName+'</option>');
                     })
                     $('#range').empty();
                     $.each(data.ranges[0].ranges, function(index, ranges){
-                        $('#range').append('<option value="'+ranges.id+'">'+ranges.ranges+'</option>');
+                        $('#range').append('<option value="'+ranges.id+'">'+ranges.rangesName+'</option>');
+                    })
+
+                    $(document).ready(function (){
+                        $('#division').on('change', function(e){
+                            var id = e.target.value;
+                            $.ajax({
+                                url:"{{ route('ajax-ranges') }}",
+                                data:{
+                                    id: id
+                                },
+                                success:function(data){
+                                    $('#range').empty();
+                                    $.each(data.ranges[0].ranges, function(index, ranges){
+                                        $('#range').append('<option value="'+ranges.id+'">'+ranges.rangesName+'</option>');
+                                    })
+                                }
+                            })
+                        })
                     })
                 }
-
-
-
             })
         });
     });

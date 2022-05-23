@@ -25,8 +25,8 @@ class RegisterFormValidation extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|email|unique:users, email',
-            'contact' => 'required|integer',
+            'email' => 'required|email|unique:email',
+            'contact' => 'required|integer|min:10|max:10',
             'designation' => 'required',
             'date_of_birth' => 'required',
             'date_of_joining' => 'required',
@@ -39,7 +39,7 @@ class RegisterFormValidation extends FormRequest
             'gender' => 'required',
             'qualification' => 'required',
             'username' => 'required|unique:users,name|min:5',
-            'password' => 'required',
+            'password' => 'required|confirmed',
         ];
     }
 }

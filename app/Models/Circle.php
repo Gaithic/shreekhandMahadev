@@ -7,5 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Circle extends Model
 {
-    use HasFactory;
+    public function divisions()
+    {
+        return $this->hasMany(Division::class, 'circle_id');
+    }
+    public function ranges1()
+    {
+        return $this->hasMany(Range::class, 'division_id');
+    }
 }
