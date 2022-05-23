@@ -9,16 +9,16 @@
           <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
             <div class="card-body p-4 ">
               <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-              <form action="{{ route('save-users') }}"  onsubmit="return validateform()" method="post">
+              <form action="{{ route('save-users') }}"  onsubmit="return validateForm()" method="post">
                 @csrf
                 <div class="row">
                   <div class="col-md-6 mb-4">
-  
+
                     <div class="form-outline">
                       <input type="text" id="name" name="name" class="form-control form-control-lg" />
                       <label class="form-label" for="firstName">Your Name</label>
                     </div>
-                    
+
                     @error('name')
                     <div class="alert alert-danger" role="alert">
                         <small>
@@ -31,7 +31,7 @@
                     </div>
                   </div>
                   <div class="col-md-6 mb-4">
-  
+
                     <div class="form-outline">
                       <input type="text" id="designation" name="designation" class="form-control form-control-lg" />
                       <label class="form-label" for="lastName">Your Designation</label>
@@ -52,12 +52,12 @@
 
                 <div class="row">
                     <div class="col-md-6 mb-4">
-    
+
                       <div class="form-outline">
                         <input type="date" id="date_of_birth" name="date_of_birth" class="form-control form-control-lg" />
                         <label class="form-label" for="firstName">Date Of Birth</label>
                       </div>
-                      
+
                       @error('date_of_birth')
                       <div class="alert alert-danger" role="alert">
                           <small>
@@ -72,7 +72,7 @@
 
                     </div>
                     <div class="col-md-6 mb-4">
-    
+
                       <div class="form-outline">
                         <input type="date" id="date_of_joining" name="date_of_joining" class="form-control form-control-lg" />
                         <label class="form-label" for="lastName">Date Of Joining</label>
@@ -87,13 +87,13 @@
                           </small>
                       </div>
                       @enderror
-    
+
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-6 mb-4">
-    
+
                       <div class="form-outline">
                         <select type="text" id="office" name="office" class="form-control form-control-lg" >
                           <option value="">Select Your Office</option>
@@ -106,7 +106,7 @@
                       <div style="margin: 5px;">
                         <span id="officeError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                     </div>
-                      
+
                       @error('office')
                       <div class="alert alert-danger" role="alert">
                           <small>
@@ -114,10 +114,10 @@
                           </small>
                       </div>
                       @enderror
-                      
+
                     </div>
                     <div class="col-md-6 mb-4">
-    
+
                         <div class="form-outline">
                             <select type="text" id="district" name="district" class="form-control form-control-lg" >
                               <option value="">Select Your District</option>
@@ -127,7 +127,7 @@
                             </select>
                             <label class="form-label" for="firstName">Select District Name</label>
                         </div>
-                        
+
                         @error('district')
                         <div class="alert alert-danger" role="alert">
                             <small>
@@ -143,18 +143,18 @@
 
                 <div class="row">
                     <div class="col-md-6 mb-4">
-    
+
                       <div class="form-outline">
                         <select type="text" id="circle" name="circle" class="form-control form-control-lg" >
                           <option value="">Select Your Circle Area</option>
-                          
+
                         </select>
                         <label class="form-label" for="firstName">Select Circle Name</label>
                       </div>
                       <div style="margin: 5px;">
                         <span id="circleError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                       </div>
-                      
+
                       @error('circle')
                       <div class="alert alert-danger" role="alert">
                           <small>
@@ -165,7 +165,7 @@
 
                     </div>
                     <div class="col-md-6 mb-4">
-    
+
                         <div class="form-outline">
                             <select type="text" id="division" name="division" class="form-control form-control-lg" >
                               <option value="">Select Your Division Area</option>
@@ -188,7 +188,7 @@
 
                 <div class="row">
                     <div class="col-md-6 mb-4">
-    
+
                       <div class="form-outline">
                         <select type="text" id="range" name="range" class="form-control form-control-lg" >
                           <option value="">Select Your Range Area</option>
@@ -208,7 +208,7 @@
 
                     </div>
                     <div class="col-md-6 mb-4">
-    
+
                         <div class="form-outline">
                             <input type="text" id="office_address" name="office_address" class="form-control form-control-lg" />
                             <label class="form-label" for="office_address">Your Office Address Name</label>
@@ -230,7 +230,7 @@
 
                 <div class="row">
                   <div class="col-md-6 mb-4 d-flex align-items-center">
-  
+
                     <div class="form-outline datepicker w-100">
                       <input type="text" class="form-control form-control-lg" id="qualification" name="qualification" />
                       <label for="Qualification" class="form-label">Your Qualification</label>
@@ -268,15 +268,15 @@
                   @enderror
 
               </div>
-                 
-                  
+
+
                   <div class="col-md-6 mb-4">
-                
+
                 </div>
-  
+
                 <div class="row">
                   <div class="col-md-6 mb-4 pb-2">
-  
+
                     <div class="form-outline">
                       <input type="email" id="email" name="email" class="form-control form-control-lg" />
                       <label class="form-label" for="emailAddress">Email</label>
@@ -284,7 +284,7 @@
                     <div style="margin: 5px;">
                         <span id="emailError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                     </div>
-                    
+
                     @error('email')
                     <div class="alert alert-danger" role="alert">
                         <small>
@@ -295,7 +295,7 @@
 
                   </div>
                   <div class="col-md-6 mb-4 pb-2">
-  
+
                     <div class="form-outline">
                       <input type="tel" id="contact" name="contact" class="form-control form-control-lg" />
                       <label class="form-label" for="phoneNumber">Phone Number</label>
@@ -303,7 +303,7 @@
                     <div style="margin: 5px;">
                         <span id="contactError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                     </div>
-                    
+
                     @error('contact')
                     <div class="alert alert-danger" role="alert">
                         <small>
@@ -311,13 +311,13 @@
                         </small>
                     </div>
                     @enderror
-                    
+
                   </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-4 pb-2">
-    
+
                       <div class="form-outline">
                         <input type="email" id="username" name="username" class="form-control form-control-lg" />
                         <label class="form-label" for="emailAddress">User Name</label>
@@ -335,7 +335,7 @@
 
                     </div>
                     <div class="col-md-6 mb-4 pb-2">
-    
+
                       <div class="form-outline">
                         <input type="password" id="password" name="password" class="form-control form-control-lg" />
                         <label class="form-label" for="phoneNumber">Password</label>
@@ -356,7 +356,7 @@
 
                 <div class="row">
                     <div class="col-md-6 mb-4 pb-2">
-    
+
                       <div class="form-outline">
                         <input type="password" id="confirm_password" name="confirm_password" class="form-control form-control-lg" />
                         <label class="form-label" for="emailAddress">Confirm Password</label>
@@ -365,14 +365,14 @@
                         <span id="cPasswordError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                     </div>
                     </div>
-                   
+
                 </div>
-  
-  
+
+
                 <div class="mt-4 pt-2">
                   <input class="btn btn-success btn-lg" type="submit" value="Register" />
                 </div>
-  
+
               </form>
             </div>
           </div>

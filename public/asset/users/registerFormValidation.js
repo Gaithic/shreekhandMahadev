@@ -2,73 +2,74 @@ function dobValidate(birth) {
 
 
     var today = new Date();
-    var nowyear = today.getFullYear();
-    var nowmonth = today.getMonth();
-    var nowday = today.getDate();
+    var nowYear = today.getFullYear();
+    var nowMonth = today.getMonth();
+    var nowDay = today.getDate();
     var birthDay = document.getElementById('date_of_birth').value;
-    var dateOfJoin = document.getElementById('date_of_joining').value;
-
-
 
     var birth = new Date(birthDay);
-
-    var birthyear = birth.getFullYear();
-    var birthmonth = birth.getMonth();
+    var birthYear = birth.getFullYear();
+    var birthMonth = birth.getMonth();
     var birthday = birth.getDate();
-
-    var age = nowyear - birthyear;
-    var age_month = nowmonth - birthmonth;
-    var age_day = nowday - birthday;
+    var age = nowYear - birthYear;
+    var age_month = nowMonth - birthMonth;
+    var age_day = nowDay - birthday;
 
     if (age > 100) {
         document.getElementById('dobError').innerHTML= "Age cannot be more than 100 Years.Please enter correct age";
-        console.log(age);
         return false;
     }
     if (age_month < 0 || (age_month == 0 && age_day < 0)) {
         age = parseInt(age) - 1;
-        console.log(age);
         return false;
 
     }
     if ((age == 18 && age_month <= 0 && age_day <= 0) || age < 18) {
-        document.getElementById('dobError').innerHTML= "Age should be more than 18 years.Please enter a valid Date of Birth"; 
-        console.log(age);
+        document.getElementById('dobError').innerHTML= "Age should be more than 18 years.Please enter a valid Date of Birth";
+        return false;
+    }
+
+}
+
+function validDiff(){
+    const birthDay = document.getElementById('date_of_birth').value;
+    const dateOfJoin = document.getElementById('date_of_joining').value;
+
+    // var today = new Date();
+    // var theYear = today.getFullYear();
+    // var theMonth = today.getMonth();
+    // var theDay  = today.getDay();
+    // var todayDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+    var YearOfBirth = new Date(birthDay);
+    var YearOfJoin = new Date(dateOfJoin);
+
+    var getYearOfBirth = YearOfBirth.getFullYear();
+    var getYearOfJoin  = YearOfJoin.getFullYear();
+    var getYearDifference = getYearOfJoin - getYearOfBirth;
+
+    if(getYearDifference<=18){
+        document.getElementById('dojError').innerHTML= "Age and date of joining difference should be greater than 18!!";
+        console.log(todayDate);
+        console.log(dateOfJoin);
+        return false;
+    }
+
+    if(dateOfJoin>getYearDifference){
+        document.getElementById('dojError').innerHTML= "Joining Date not be greater than Today!!";
         return false;
     }
 
 
 
-    var dateOfJoining = age;
 
-    // if(dateOfJoining ){
-    //     document.getElementById('dojError').innerHTML= "Grator";
-    //     return false;
-    // }
-
-    if (dateOfJoining == 18) {
-        document.getElementById('dobError').innerHTML= "Grator"; 
-        console.log(dateOfJoining);
-        return false;
-    }
-
-
-
-
-    
-
-  
-
-
-
- 
 }
 
 
 
 
 
-function validateform(){
+function validateForm(){
     const name = document.getElementById('name').value;
     const designation = document.getElementById('designation').value;
     const date_of_birth = document.getElementById('date_of_birth').value;
@@ -86,6 +87,7 @@ function validateform(){
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const cPassword = document.getElementById('confirm_password').value;
+    // const diffrence = Math(date_of_joining - date_of_birth);
 
 
     if(name==''){
@@ -97,7 +99,7 @@ function validateform(){
         return false;
     }
 
-    
+
     if(designation==''){
         document.getElementById('designationError').innerHTML= "Designation is required";
         return false;
@@ -116,7 +118,8 @@ function validateform(){
     }
 
     if(dobValidate(date_of_birth)){
-        
+        document.getElementById('dobError').innerHTML= "Date Of Birth is required";
+        return false;
     }
 
     if(date_of_joining==''){
@@ -129,11 +132,10 @@ function validateform(){
         return false;
     }
 
-    if(date_of_joining>=dobValidate(date_of_birth)){
-        document.getElementById('dojError').innerHTML= "Grateot";
-        return false;
+    if(validDiff(date_of_joining)){
+
     }
-    
+
     if(office_address==''){
         document.getElementById('officeError').innerHTML= "Office Address is required";
         return false;
@@ -177,14 +179,14 @@ function validateform(){
     if(qualification==''){
         document.getElementById('qualificationError').innerHTML= "Qualification field is required";
         return false;
-        
+
     }
 
 
     if(email==''){
         document.getElementById('emailError').innerHTML= "Email is required";
         return false;
-        
+
     }
 
 
@@ -217,7 +219,7 @@ function validateform(){
 
 
 
-    
 
-    
+
+
 }

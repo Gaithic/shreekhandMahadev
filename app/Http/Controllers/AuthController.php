@@ -50,7 +50,7 @@ class AuthController extends Controller
         $user->division = $request->division;
         $user->office_address = $request->office_address;
         $user->qualification = $request->qualification;
-        $user->username = $request->username;
+        $user->username = trim(strtolower($request->username));
         $user->password = Hash::make($request->password);
         $user->email = $request->email;
         $user->contact = $request->contact;
