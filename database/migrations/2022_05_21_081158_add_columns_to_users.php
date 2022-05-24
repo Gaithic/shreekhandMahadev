@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('qualification');
             $table->string('username');
             $table->string('contact');
-            $table->string('officeAddress');
+    
 
         });
     }
@@ -44,7 +44,7 @@ return new class extends Migration
             $table->dropColumn('qualification');
             $table->dropColumn('username');
             $table->dropColumn('contact');
-            $table->dropColumn('officeAddress');
+            
         });
     }
 };

@@ -1,0 +1,187 @@
+@extends('layout.master')
+
+@section('breadcrumbs')
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">All Users</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item active">Users</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+@endsection
+
+@push('styles')
+    <link href="{{asset('/asset/css/user.css') }}" rel="stylesheet">
+@endpush
+
+@section('content')
+<section class="vh-100">
+   <form action="{{ route('save-activity') }}" method="POST" onsubmit=" return activityCalender()">
+    @csrf
+    <div class="container py-5 h-100">
+      <div class="h1 text-center mt-3 mb-4 pb-3 text-center">
+        <a style="color: black; float:left; margin:5px; padding:10px;" class="heading"></a>
+      </div>
+      <div class="h1 text-center mt-3 mb-4 pb-3 text-center">
+        <a href="#" style="color: black; float:right; margin:5px; padding:10px;" class="heading"></a>
+      </div>
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col">
+          <div class="card" id="list1" style="border-radius: .75rem; background-color: #eff1f2; padding:10px;">
+            <div class="card-body py-4 px-4 px-md-5" style="padding:10px; margin:5px;">
+              
+
+              <p class="h1 text-center mt-3 mb-4 pb-3 text-center">
+
+                <u style="color: black;" class="heading">Daily Diary Page</u>
+              </p>
+
+              <p class="h1 text-center mt-3 mb-4 pb-3 text-center">
+
+                <u style="color: black;" class="heading"></u>
+              </p>
+
+              <div class="pb-2" style="padding:10px; margin:5px;">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-row align-items-center">
+                      <label>Name:</label>
+                     <input type="text" placeholder="Add Activity name" name="name" id="name"/>
+                      <span id="nameError" style="color: red;"></span>
+                      <a href="#!" data-mdb-toggle="tooltip" title="Set due date"></a>
+                      <div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @error('name')
+              <div class="alert alert-danger" role="alert">
+                  <small>
+                      <strong>{{ $message }}</strong>
+                  </small>
+              </div>
+              @enderror
+
+              <div class="pb-2" style="padding:10px; margin:5px;">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-row align-items-center">
+                      <label>Date:</label>
+                     <input type="date" name="datetime" id="datetime"  />
+                     <span id='dateError' style="color: red;"></span>
+                      <a href="#!" data-mdb-toggle="tooltip" title="Set due date"></a>
+                      <div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @error('datetime')
+              <div class="alert alert-danger" role="alert">
+                  <small>
+                      <strong>{{ $message }}</strong>
+                  </small>
+              </div>
+              @enderror
+
+              <div class="pb-2" style="padding:10px; margin:5px;">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-row align-items-center">
+                      <label>Activity:</label>
+                      <select name="activityName" id="activity">
+                        <option value="">Select Activity</option>
+                        <option value="office">Office</option>
+                        <option value="field visit">Field visit</option>
+                        <option value="tour">Tour</option>
+                        <option value="meeting">Meeting</option>
+                        <option value="leave">Leave</option>
+                     </select>
+                     <span id="activityError" style="color: red;"></span>
+                      <a href="#!" data-mdb-toggle="tooltip" title="Set due date"></i></a>
+                      <div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @error('activity_list')
+              <div class="alert alert-danger" role="alert">
+                  <small>
+                      <strong>{{ $message }}</strong>
+                  </small>
+              </div>
+              @enderror
+
+
+              <div class="pb-2" style="padding:10px; margin:5px;">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-row align-items-center">
+                      <label>Description:</label>
+                      <input type="text" class="form-control form-control-lg"  name="description" id="description"
+                        placeholder="Add Activity description..." >
+                        <span id="desciptionError" style="color: red;"></span>
+                      <a href="#!" data-mdb-toggle="tooltip" title="Set due date"></i></a>
+                      <div style="padding:10px; margin:5px;">
+                        <input type="submit" class="btn btn-warning" value="Add Today Activity" style="font-weight:700; font-size:20px; background: #23af89;"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @error('description')
+              <div class="alert alert-danger" role="alert">
+                  <small>
+                      <strong>{{ $message }}</strong>
+                  </small>
+              </div>
+              @enderror
+
+
+              <hr class="my-4">
+
+              <div class="d-flex justify-content-end align-items-center mb-4 pt-2 pb-3">
+                <p class="small mb-0 me-2 text-muted m-2"> Created Task</p>
+                <select class="select">
+                  <option value="1">Select</option>
+                  <option value="1">All</option>
+                  <option value="2">Completed</option>
+                  <option value="3">Active</option>
+                  <option value="4">Has due date</option>
+                </select>
+                <p class="small mb-0 ms-4 me-2 text-muted m-2">Sort</p>
+                <select class="select">
+                  <option value="1">Added date</option>
+                  <option value="2">Due date</option>
+                </select>
+                <a href="#!" style="color: #23af89;" data-mdb-toggle="tooltip" title="Ascending"><i
+                    class="fas fa-sort-amount-down-alt ms-2"></i></a>
+              </div>
+
+         
+    
+     
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   </form>
+  </section>
+
+@endsection

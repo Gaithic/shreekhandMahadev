@@ -15,7 +15,7 @@
                   <div class="col-md-6 mb-4">
 
                     <div class="form-outline">
-                      <input type="text" id="name" name="name" class="form-control form-control-lg" />
+                      <input type="text" id="name" name="name" class="form-control form-control-lg"  value="{{ old('name') }}"/>
                       <label class="form-label" for="firstName">Your Name</label>
                     </div>
 
@@ -33,7 +33,7 @@
                   <div class="col-md-6 mb-4">
 
                     <div class="form-outline">
-                      <input type="text" id="designation" name="designation" class="form-control form-control-lg" />
+                      <input type="text" id="designation" name="designation" class="form-control form-control-lg" value="{{ old('designation') }}"/>
                       <label class="form-label" for="lastName">Your Designation</label>
                     </div>
                     <div style="margin: 5px;">
@@ -54,7 +54,7 @@
                     <div class="col-md-6 mb-4">
 
                       <div class="form-outline">
-                        <input type="date" id="date_of_birth" name="date_of_birth" class="form-control form-control-lg" />
+                        <input type="date" id="date_of_birth" name="date_of_birth" class="form-control form-control-lg" value="{{ old('date_of_birth') }}"/>
                         <label class="form-label" for="firstName">Date Of Birth</label>
                       </div>
 
@@ -74,7 +74,7 @@
                     <div class="col-md-6 mb-4">
 
                       <div class="form-outline">
-                        <input type="date" id="date_of_joining" name="date_of_joining" class="form-control form-control-lg" />
+                        <input type="date" id="date_of_joining" name="date_of_join" class="form-control form-control-lg" value="{{ old('date_of_join') }}"/>
                         <label class="form-label" for="lastName">Date Of Joining</label>
                       </div>
                       <div style="margin: 5px;">
@@ -95,7 +95,7 @@
                     <div class="col-md-6 mb-4">
 
                       <div class="form-outline">
-                        <select type="text" id="office" name="office" class="form-control form-control-lg" >
+                        <select type="text" id="office" name="office_id" class="form-control form-control-lg"  value="{{ old('office_id') }}">
                           <option value="">Select Your Office</option>
                           @foreach ($offices as $office)
                              <option value="{{ $office->id }}">{{ $office->officeName }}</option>
@@ -107,7 +107,7 @@
                         <span id="officeError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                     </div>
 
-                      @error('office')
+                      @error('office_id')
                       <div class="alert alert-danger" role="alert">
                           <small>
                               <strong >{{ $message }}</strong>
@@ -119,7 +119,7 @@
                     <div class="col-md-6 mb-4">
 
                         <div class="form-outline">
-                            <select type="text" id="district" name="district" class="form-control form-control-lg" >
+                            <select type="text" id="district" name="district_id" class="form-control form-control-lg"  value="{{ old('district_id') }}">
                               <option value="">Select Your District</option>
                               @foreach ($districts as $district)
                                   <option value="{{ $district->id }}">{{ $district->districtName }}</option>
@@ -128,7 +128,7 @@
                             <label class="form-label" for="firstName">Select District Name</label>
                         </div>
 
-                        @error('district')
+                        @error('district_id')
                         <div class="alert alert-danger" role="alert">
                             <small>
                                 <strong >{{ $message }}</strong>
@@ -145,7 +145,7 @@
                     <div class="col-md-6 mb-4">
 
                       <div class="form-outline">
-                        <select type="text" id="circle" name="circle" class="form-control form-control-lg" >
+                        <select type="text" id="circle" name="circle_id" class="form-control form-control-lg" value="{{ old('circle_id') }}" >
                           <option value="">Select Your Circle Area</option>
 
                         </select>
@@ -155,7 +155,7 @@
                         <span id="circleError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                       </div>
 
-                      @error('circle')
+                      @error('circle_id')
                       <div class="alert alert-danger" role="alert">
                           <small>
                               <strong >{{ $message }}</strong>
@@ -167,7 +167,7 @@
                     <div class="col-md-6 mb-4">
 
                         <div class="form-outline">
-                            <select type="text" id="division" name="division" class="form-control form-control-lg" >
+                            <select type="text" id="division" name="division_id" class="form-control form-control-lg" value="{{ old('division_id') }}">
                               <option value="">Select Your Division Area</option>
                             </select>
                             <label class="form-label" for="Division">Select Division Name</label>
@@ -175,7 +175,7 @@
                         <div style="margin: 5px;">
                             <span id="divisionError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                         </div>
-                        @error('division')
+                        @error('division_id')
                         <div class="alert alert-danger" role="alert">
                             <small>
                                 <strong >{{ $message }}</strong>
@@ -190,7 +190,7 @@
                     <div class="col-md-6 mb-4">
 
                       <div class="form-outline">
-                        <select type="text" id="range" name="range" class="form-control form-control-lg" >
+                        <select type="text" id="range" name="range_id" class="form-control form-control-lg" >
                           <option value="">Select Your Range Area</option>
                         </select>
                         <label class="form-label" for="Range">Select Range Name</label>
@@ -198,7 +198,7 @@
                       <div style="margin: 5px;">
                         <span id="rangeError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                     </div>
-                      @error('range')
+                      @error('range_id')
                       <div class="alert alert-danger" role="alert">
                           <small>
                               <strong >{{ $message }}</strong>
@@ -210,7 +210,7 @@
                     <div class="col-md-6 mb-4">
 
                         <div class="form-outline">
-                            <input type="text" id="office_address" name="office_address" class="form-control form-control-lg" />
+                            <input type="text" id="office_address" name="office_address" class="form-control form-control-lg" value="{{ old('office_address') }}"/>
                             <label class="form-label" for="office_address">Your Office Address Name</label>
                         </div>
                         <div style="margin: 5px;">
@@ -232,7 +232,7 @@
                   <div class="col-md-6 mb-4 d-flex align-items-center">
 
                     <div class="form-outline datepicker w-100">
-                      <input type="text" class="form-control form-control-lg" id="qualification" name="qualification" />
+                      <input type="text" class="form-control form-control-lg" id="qualification" name="qualification" value="{{ old('qualification') }}"/>
                       <label for="Qualification" class="form-label">Your Qualification</label>
                     </div>
                   </div>
@@ -247,7 +247,7 @@
                     <span id="qualificationError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                 </div>
                 <div class="form-outline">
-                  <select type="text" id="gender" name="gender" class="form-control form-control-lg" >
+                  <select type="text" id="gender" name="gender" class="form-control form-control-lg" value="{{ old('gender') }}">
                       <option value="" >Select</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
@@ -278,7 +278,7 @@
                   <div class="col-md-6 mb-4 pb-2">
 
                     <div class="form-outline">
-                      <input type="text" id="email" name="email" class="form-control form-control-lg" />
+                      <input type="text" id="email" name="email" class="form-control form-control-lg" value="{{ old('email') }}"/>
                       <label class="form-label" for="emailAddress">Email</label>
                     </div>
                     <div style="margin: 5px;">
@@ -297,7 +297,7 @@
                   <div class="col-md-6 mb-4 pb-2">
 
                     <div class="form-outline">
-                      <input type="text" id="contact" name="contact" class="form-control form-control-lg" />
+                      <input type="text" id="contact" name="contact" class="form-control form-control-lg" value="{{ old('contact') }}"/>
                       <label class="form-label" for="phoneNumber">Mobile Number</label>
                     </div>
                     <div style="margin: 5px;">
@@ -319,7 +319,7 @@
                     <div class="col-md-6 mb-4 pb-2">
 
                       <div class="form-outline">
-                        <input type="text" id="username" name="username" class="form-control form-control-lg" />
+                        <input type="text" id="username" name="username" class="form-control form-control-lg" value="{{ old('username') }}"/>
                         <label class="form-label" for="emailAddress">User Name</label>
                       </div>
                       <div style="margin: 5px;">
@@ -358,7 +358,7 @@
                     <div class="col-md-6 mb-4 pb-2">
 
                       <div class="form-outline">
-                        <input type="password" id="confirm_password" name="confirm_password" class="form-control form-control-lg" />
+                        <input type="password" id="confirm_password" name="password_confirmation" class="form-control form-control-lg" />
                         <label class="form-label" for="emailAddress">Confirm Password</label>
                       </div>
                       <div style="margin: 5px;">

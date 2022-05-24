@@ -25,21 +25,22 @@ class RegisterFormValidation extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|unique:email|email',
-            'contact' => 'required|integer|min:10|max:10',
+            'email' => 'required|unique:users',
+            'contact' => 'required|min:10|max:10',
             'designation' => 'required',
             'date_of_birth' => 'required',
-            'date_of_joining' => 'required',
-            'office' => 'required',
-            'district' => 'required',
-            'circle' => 'required',
-            'division' => 'required',
-            'range' => 'required',
+            'date_of_join' => 'required',
+            'office_id' => 'required',
+            'district_id' => 'required',
+            'circle_id' => 'required',
+            'division_id' => 'required',
+            'range_id' => 'required',
             'office_address' => 'required',
             'gender' => 'required',
             'qualification' => 'required',
-            'username' => 'required|unique:users,name|min:5',
+            'username' => 'required|unique:users,username|min:5',
             'password' => 'required|confirmed',
+            'password_confirmation' => 'required'
         ];
     }
 }

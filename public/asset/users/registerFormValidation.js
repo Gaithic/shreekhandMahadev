@@ -1,5 +1,3 @@
-const { isNumber } = require("lodash");
-
 function validateForm(){
     const name = document.getElementById('name').value;
     const designation = document.getElementById('designation').value;
@@ -78,13 +76,13 @@ function validateForm(){
         var inputMonth = userInputYear.getMonth();
         var inputDate  = userInputYear.getDate();
 
-        var differenceAge = theYear - inputYear
+        var differenceAge = theYear - inputYear;
 
         if(differenceAge > 100){
             document.getElementById('dobError').innerHTML= "Age not be grater than 100 Years!!";
             return false;
         }else{
-            if(differenceAge <=18){
+            if(differenceAge <=18 ){
                 document.getElementById('dobError').innerHTML= "Age should be grater than 18 year!!";
                 return false;
             }else{
@@ -108,13 +106,30 @@ function validateForm(){
             var birthDay = new Date(date_of_birth)
             var userJoiningYear = new Date(date_of_joining)
             var birthDayFullYear = birthDay.getFullYear();
+            var birthDayFullMonth = birthDay.getMonth();
+            var birthDayFullDate  = birthDay.getDate();
+    
+
             var getJoiningYear = userJoiningYear.getFullYear();
+            var getJoiningMonth  = userJoiningYear.getMonth();
+            var getJoiningDate  = userJoiningYear.getDate();
+
             var getDifference = getJoiningYear - birthDayFullYear;
+            var getMonthDifference = getJoiningMonth -birthDayFullMonth;
+            var getDateDifference = getJoiningDate - birthDayFullDate;
+
 
             if(getDifference<18){
                 document.getElementById('dojError').innerHTML= "Age Difference Between Date of birth and Date of Joining Must be equal to grater than 18 Years!! ";
                 return false;
-            }else{
+            }else if(getMonthDifference<0){
+                document.getElementById('dojError').innerHTML= "Age Difference Between Date of birth and Date of Joining Must be equal to grater than 18 Years!! ";
+                return false;
+            }else if(getDateDifference<0){
+                document.getElementById('dojError').innerHTML= "Age Difference Between Date of birth and Date of Joining Must be equal to grater than 18 Years!! ";
+                return false;
+            }
+            else{
                 var todayDate = new Date();
                 var getTodayFullDate = todayDate.getFullYear()+'-'+('0' + (todayDate.getMonth()+1)).slice(-2)+'-'+todayDate.getDate();
                 if(date_of_joining>getTodayFullDate){
@@ -191,6 +206,7 @@ function validateForm(){
     }else{
         document.getElementById('emailError').innerHTML="";
     }
+    
   //contact field input validation
 
     if(contact==''){

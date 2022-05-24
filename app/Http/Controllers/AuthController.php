@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginValidation;
 use App\Http\Requests\RegisterFormValidation;
 use App\Models\Circle;
 use App\Models\District;
 use App\Models\Division;
+use App\Models\Holidays;
 use App\Models\OfficesName;
 use App\Models\Range;
 use App\Models\User;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -70,12 +75,106 @@ class AuthController extends Controller
 
 
     public function saveRegisterUser(RegisterFormValidation $request){
-        
+        $user = new User();
+        $user->name = $request->name;
+        $user->designation = $request->designation;
+        $user->date_of_birth = $request->date_of_birth;
+        $user->date_of_join = $request->date_of_join;
+        $user->office_id = $request->office_id;
+        $user->district_id = $request->district_id;
+        $user->range_id = $request->range_id;
+        $user->gender = $request->gender;
+        $user->circle_id = $request->circle_id;
+        $user->division_id = $request->division_id;
+        $user->office_address = $request->office_address;
+        $user->qualification = $request->qualification;
+        $user->username =trim(strtolower($request->username));
+        $user->password = Hash::make($request->password);
+        $user->email = trim(strtolower($request->email));
+        $user->contact = $request->contact;
+        $user->isadmin  = 0;
+        $user->status = 0;
+        $res = $user->save();
+        if($res){
+            return redirect()->intended(route('login-view'))->with('message', 'Your account is created Kindly Wait for Admin Approval!!');
+        }else{
+            return redirect()->intended(route('regiter-view'))->with('error', 'Oops Something Went Wrong Kindly try after sometime!');
+        }
     }
 
-    public function loginView(){
+    public function loginview(){
         return view('auth.login');
     }
 
+
+    public function loginUsers(LoginValidation $request){
+        $local_holiday = Holidays::whereDate('holiday_date', Carbon::today())->get()->first();
+        if($local_holiday){
+            $local_holiday = $local_holiday->holiday_date;
+        }
+        $date = date('Y-m-d');
+        $date1 = now()->format('l');
+        $year=date('Y');
+        $month=date('m');
+        $firstday = new  DateTime("$year-$month-1 0:0:0");
+        $first_w=$firstday->format('w');
+        $saturday1=new DateTime;
+        $saturday1->setDate($year,$month,14-$first_w);
+        $holiday = $saturday1->format('l');
+
+
+        if($date == $local_holiday){
+            return redirect()->intended(route('login-view'))->with('success', 'Today is off!! try on working Days');
+        }else{
+            if($date1=="Sunday"){
+                return redirect()->intended(route('login-view'))->with('success', 'Today is off!! try on working Days');
+           }else{
+                if($date1 == $holiday){
+                    return redirect()->intended(route('login-view'))->with('success', 'Today is Second Saturday!! try on working Days');
+                }else{
+                    $credentials = $request->only('username', 'password');
+                    if(Auth::attempt($credentials)){
+                        if(Auth::check()){
+                            return redirect()->intended(route('auth.index'))->with('success', 'Welcome to Dashboard');
+                        }
+                    }else{
+                        return redirect()->intended(route('login-view'))->with('error', 'Password not matches');
+                    }
+                }
+           }
+        }
+
+
+
+
+
+    }
+
+
+    public function logout(Request $request) {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerate();
+        return redirect()->intended(route('login-view'))->with('success', 'You logged out!!');
+
+    }
+
+    public function dashboard(){
+        $user = Auth::user();
+        if(Auth::check()){
+            if($user->isAdmin==1){
+                return redirect()->intended(route('admin-index'))->with('success', 'Welcome to Dashboard!!');
+
+            }elseif($user->isAdmin==0){
+                return redirect()->intended(route('user.index'))->with('success', 'Welcome to Dashboard!!');
+            }else{
+                return redirect()->intended(route('login-view'))->with('error', 'Access Denied!!');
+            }
+        }
+
+    }
+
+
+    
 
 }

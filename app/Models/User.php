@@ -41,4 +41,36 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function offices()
+    {
+       return $this->belongsTo(OfficesName::class, 'district_id');
+    }
+
+    public function districts()
+    {
+       return $this->belongsTo(District::class, 'district_id');
+    }
+
+
+    public function circles()
+    {
+       return $this->belongsTo(Circle::class, 'circle_id');
+    }
+
+    public function divisions()
+    {
+       return $this->belongsTo(Division::class, 'division_id');
+    }
+
+
+    public function ranges()
+    {
+       return $this->belongsTo(Range::class, 'range_id');
+    }
+
+
+
+
 }

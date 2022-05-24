@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="{{ route('user.index') }}">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -7,18 +7,47 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          @if(Auth::check())
+            @if(Route::has('login-users'))
+              <a class="nav-link" href="{{ route('/') }}">{{ now()->format('l') }} <span class="sr-only">(current)</span></a>
+            @endif
+          @else
+              <a class="nav-link" href="{{ route('/') }}">Home <span class="sr-only">(current)</span></a>
+          @endif
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About Us</a>
+          @if (Auth::check())
+            @if(Route::has('login-users'))
+            <a class="nav-link" href="#">{{ Auth::user()->districts->districtName }}</a>
+            @endif
+          @else
+            <a class="nav-link" href="#">About Us</a>
+
+          @endif
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Contact Us</a>
+          @if(Auth::check())
+            @if(Route::has('login-users'))
+              <a class="nav-link" href="#">{{ Auth::user()->circles->circleName }}</a>
+            @endif
+          @else
+              <a class="nav-link" href="#">Contact Us</a>
+          @endif
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <a href="{{ route('user-register') }}"><button class="btn btn-outline-success m-2 my-sm-2" type="submit" >Login</button></a>
+        @if (Auth::check())
+          @if(Route::has('login-users'))
+            <a href="{{ route('user.index') }}" class="btn btn-outline-success m-2 my-sm-2">Hello {{Auth::user()->name }}</a>
+            <a href="{{ route('logout') }}" class="btn btn-outline-success m-2 my-sm-2">Logout</a>
+          @endif
+
+        @else
+        <a href="{{ route('login-view') }}" class="btn btn-outline-success m-2 my-sm-2">Login</a>
         <a href="{{ route('user-register') }}" class="btn btn-outline-success m-2 my-sm-2">Register</a>
+        @endif
+        
+
       </form>
     </div>
   </nav>
