@@ -21,40 +21,86 @@
 @endsection
 
 @section('content')
-<div class="col-md-8" style="margin:20px;">
-    <div class="card card-primary">
+
+    <div class="card card-primary" style="display: flex; ">
       <div class="card-header">
         <h3 class="card-title">Date picker</h3>
       </div>
-      <div class="card-body">
-        <!-- Date -->
-        <div class="col-md-6" style="display: flex; flex-direction:column">
-          <label>Start Date:</label>
-            <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                <input type="date" class="form-control datetimepicker-input" data-target="#reservationdate"/>
-                <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                </div>
+      <div class="advance-search">
+        <span class="desc">ADVANCED SEARCH</span>
+        <div class="row">
+          <div class="input-field">
+            <div class="input-select">
+              <select data-trigger="" name="choices-single-defaul">
+                <option placeholder="" value="">Accessories</option>
+                <option>Subject b</option>
+                <option>Subject c</option>
+              </select>
             </div>
-        </div>
-        <!-- Date and time -->
-        <div class="col-md-6"  >
-          <label>End time:</label>
-            <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
-                <input type="date" class="form-control datetimepicker-input" data-target="#reservationdatetime"/>
-                <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                </div>
+          </div>
+          <div class="input-field">
+            <div class="input-select">
+              <select data-trigger="" name="choices-single-defaul">
+                <option placeholder="" value="">Color</option>
+                <option>Subject b</option>
+                <option>Subject c</option>
+              </select>
             </div>
+          </div>
+          <div class="input-field">
+            <div class="input-select">
+              <select data-trigger="" name="choices-single-defaul">
+                <option placeholder="" value="">Size</option>
+                <option>Subject b</option>
+                <option>Subject c</option>
+              </select>
+            </div>
+          </div>
         </div>
-        <div class="card-body">
-          
-          <canvas class="chart has-fixed-height" id="pie-chart"></canvas>
-      </div>
-
+        <div class="row second">
+          <div class="input-field">
+            <div class="input-select">
+              <select data-trigger="" name="choices-single-defaul">
+                <option placeholder="" value="">Sale</option>
+                <option>Subject b</option>
+                <option>Subject c</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-field">
+            <div class="input-select">
+              <select data-trigger="" name="choices-single-defaul">
+                <option placeholder="" value="">Time</option>
+                <option>Last time</option>
+                <option>Today</option>
+                <option>This week</option>
+                <option>This month</option>
+                <option>This year</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-field">
+            <div class="input-select">
+              <select data-trigger="" name="choices-single-defaul">
+                <option placeholder="" value="">Type</option>
+                <option>Subject b</option>
+                <option>Subject c</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row third">
+          <div class="input-field">
+            <div class="result-count">
+              <span>108 </span>results</div>
+            <div class="group-btn">
+              <button class="btn-delete" id="delete">RESET</button>
+              <button class="btn-search">SEARCH</button>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
 
-  </div>
 @endsection
