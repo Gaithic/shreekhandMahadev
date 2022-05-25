@@ -21,7 +21,7 @@
     @yield('content')
 
     <script defer src="{{ asset('/asset/users/registerFormValidation.js') }}"></script>
-    {{-- <script src="{{ asset('/asset/js/calender.js') }}"></script> --}}
+    <script src="{{asset('/asset/js/jquerydatatable.js') }}"></script>
     <script src="{{asset('/asset/js/toaster.js') }}"></script>
     
     @stack('scripts')

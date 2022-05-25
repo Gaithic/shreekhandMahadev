@@ -108,28 +108,33 @@ function validateForm(){
             var birthDayFullYear = birthDay.getFullYear();
             var birthDayFullMonth = birthDay.getMonth();
             var birthDayFullDate  = birthDay.getDate();
+            var dayOfBirth = birthDay.getDay();
     
 
             var getJoiningYear = userJoiningYear.getFullYear();
             var getJoiningMonth  = userJoiningYear.getMonth();
             var getJoiningDate  = userJoiningYear.getDate();
+            var getDayOfJoning  = userInputYear.getDay();
 
             var getDifference = getJoiningYear - birthDayFullYear;
             var getMonthDifference = getJoiningMonth -birthDayFullMonth;
             var getDateDifference = getJoiningDate - birthDayFullDate;
+            var getDateOfday = getDayOfJoning - dayOfBirth;
+            var month_diff = new Date(getDifference)
 
+            
+            
 
-            if(getDifference<18){
+           if(getDifference<18){
                 document.getElementById('dojError').innerHTML= "Age Difference Between Date of birth and Date of Joining Must be equal to grater than 18 Years!! ";
+                console.log(getDifference);
                 return false;
-            }else if(getMonthDifference<0){
+           }else if((getMonthDifference<0) && (getDateDifference<0) && (getDateOfday<0)){
                 document.getElementById('dojError').innerHTML= "Age Difference Between Date of birth and Date of Joining Must be equal to grater than 18 Years!! ";
+                console.log(getDifference);
                 return false;
-            }else if(getDateDifference<0){
-                document.getElementById('dojError').innerHTML= "Age Difference Between Date of birth and Date of Joining Must be equal to grater than 18 Years!! ";
-                return false;
-            }
-            else{
+           }
+           else{
                 var todayDate = new Date();
                 var getTodayFullDate = todayDate.getFullYear()+'-'+('0' + (todayDate.getMonth()+1)).slice(-2)+'-'+todayDate.getDate();
                 if(date_of_joining>getTodayFullDate){
@@ -137,6 +142,11 @@ function validateForm(){
                     return false;
                 }else{
                     document.getElementById('dojError').innerHTML= "";
+                    console.log(getDifference);
+                    console.log(getMonthDifference);
+                    console.log(getDateDifference);
+                    console.log(getDateOfday);
+                    // console.log(month_diff);
                 }
             }
         }

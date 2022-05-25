@@ -82,7 +82,6 @@
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
-                <span class="right badge badge-danger">New</span>
               </p>
             </a>
           </li>
@@ -121,7 +120,7 @@
           </li>
   
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Reports
@@ -141,6 +140,13 @@
                   <p>Specific Report's</p>
                 </a>
               </li>
+
+              <li class="nav-item">
+                <a href="{{ route('show-user-activity')}}" class="nav-link">
+                  <i class="fa fa-book-circle nav-icon" aria-hidden="true"></i>
+                  <p>User All Activity List</p>
+                </a>
+              </li>
   
             </ul>
           </li>
@@ -153,7 +159,17 @@
                 {{-- <i class="fa fa-sign-out"></i> --}}
               <p >Create Holiday</p>
             </a>
-        </li>
+          </li>
+            
+          <li class="nav-item">
+            <a href="{{ route('show-holiday') }}" class="nav-link">
+                {{-- <i class="fa fa-sign-out-circle nav-icon" aria-hidden="true"></i> --}}
+                <i class="right fas fa-gear"></i>
+                {{-- <i class="fa fa-sign-out"></i> --}}
+              <p >All Holiday</p>
+            </a>
+          </li>
+  
   
           <li class="nav-item">
               <a href="" class="nav-link">

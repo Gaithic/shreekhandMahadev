@@ -128,7 +128,12 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-home"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="office" id="office"value="{{old('office')}}">
+                        <select class="form-control" name="office_id" id="office" >
+                            <option value="">Select</option>
+                            @foreach ($offices as $office)
+                                <option value="{{ $office->id }}">{{ $office->officeName }}</option>
+                            @endforeach
+                        </select>
                         </div>
                         
                         <div style="margin: 5px;">
@@ -156,7 +161,7 @@
                             <select style="padding: 5px;" name="district" id="district">
                                 <option value="">Map District For Employee</option>
                                 @foreach ($districts as $district)
-                                    <option value="{{ $district->id }}">{{ $district->district }}</option>
+                                    <option value="{{ $district->id }}">{{ $district->districtName }}</option>
                                 @endforeach
                             </select>
 
@@ -394,7 +399,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Employee Passord</label>
+                        <label>Employee Password</label>
 
                         <div class="input-group">
                         <div class="input-group-prepend">
@@ -406,6 +411,30 @@
 
                         <div style="margin: 5px;">
                             <span id="passwordError"  style="color: red; font-size:15px; font-weight:700;" ></span>
+                        </div>
+                        <!-- /.input group -->
+                        @error('password')
+                        <div class="alert alert-danger" role="alert">
+                            <small>
+                                <strong >{{ $message }}</strong>
+                            </small>
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+
+                        <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                        </div>
+                        <input type="password" class="form-control"
+                            name="password"  id="cpassword">
+                        </div>
+
+                        <div style="margin: 5px;">
+                            <span id="cpasswordError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                         </div>
                         <!-- /.input group -->
                         @error('password')
@@ -537,16 +566,16 @@
                 success:function (data) {
                     $('#circle').empty();
                     $.each(data.circles[0].circles,function(index,circles){
-                        $('#circle').append('<option value="'+circles.id+'">'+circles.circle+'</option>');
+                        $('#circle').append('<option value="'+circles.id+'">'+circles.circleName+'</option>');
                     })
 
                     $('#division').empty();
                         $.each(data.divisions[0].divisions, function(index, divisions){
-                        $('#division').append('<option value="'+divisions.id+'">'+divisions.division+'</option>');
+                        $('#division').append('<option value="'+divisions.id+'">'+divisions.divisionName+'</option>');
                     })
                     $('#range').empty();
                     $.each(data.ranges[0].ranges, function(index, ranges){
-                        $('#range').append('<option value="'+ranges.id+'">'+ranges.ranges+'</option>');
+                        $('#range').append('<option value="'+ranges.id+'">'+ranges.rangesName+'</option>');
                     })
 
                     $(document).ready(function (){
@@ -560,7 +589,7 @@
                                 success:function(data){
                                     $('#range').empty();
                                     $.each(data.ranges[0].ranges, function(index, ranges){
-                                        $('#range').append('<option value="'+ranges.id+'">'+ranges.ranges+'</option>');
+                                        $('#range').append('<option value="'+ranges.id+'">'+ranges.rangesName+'</option>');
                                     })
                                 }
                             })

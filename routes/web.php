@@ -53,6 +53,15 @@ Route::group(['prefix' => 'admin', 'middleware' =>['isadmin']], function(){
     Route::post('/save-holiday', [AdminController::class, 'saveHoliday'])->name('save-holiday');
     Route::get('/show-chart', [ChartController::class, 'showChart'])->name('show-chart');
     Route::get('/show-reports', [ChartController::class, 'employeesReportsView'])->name('show-reports');
+    Route::get('/manage/holidays', [AdminController::class, 'manageHolidays'])->name('manage-holidays');
+    Route::get('/show/holiday', [AdminController::class, 'showHoliday'])->name('show-holiday');
+    Route::get('/edit/holidays/{id}', [AdminController::class, 'editHolidays'])->name('edit-holidays');
+    Route::post('/upate/holiday/{id}', [AdminController::class, 'updateHoliday'])->name('updated-holiday');
+    Route::get('/show/activites', [AdminController::class, 'viewAllUserActivities'])->name('show-user-activity');
+    Route::get('/edit/activity/{id}', [AdminController::class, 'editUserActivity'])->name(('edit-activity'));
+    Route::post('/update/activity/{id}', [AdminController::class, 'updateUserActivity'])->name(('update-activity'));
+
+    
 
 });
 
@@ -62,5 +71,6 @@ Route::group(['prefix' => 'admin', 'middleware' =>['isadmin']], function(){
 Route::group(['prefix' => 'users', 'middleware' => ['auth']], function(){
     Route::get('/dashboard', [UserController::class, 'usersDashboard'])->name('user.index');
     Route::post('/save-activity', [UserController::class,'saveActivity'])->name(('save-activity'));
+    Route::get('/show/allActivities', [UserController::class, 'showAllActivity'])->name('show-activities');
 
 });

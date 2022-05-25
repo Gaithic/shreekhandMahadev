@@ -41,7 +41,10 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                                 </div>
-                                    <input type="text" class="form-control" name="name" value="{{$user->name}}">
+                                    <input type="text" class="form-control" name="name" id="name" value="{{$user->name}}">
+                            </div>
+                            <div style="margin: 5px;">
+                                <span id="nameError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                             </div>
 
 
@@ -55,7 +58,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-chair"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="designation" value="{{$user->designation}}">
+                            <input type="text" class="form-control" name="designation" id="designation" value="{{$user->designation}}">
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -69,7 +72,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="date_of_birth" value="{{$user->date_of_birth}}">
+                            <input type="date" class="form-control" name="date_of_birth" id="date_of_birth" value="{{$user->date_of_birth}}">
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -83,7 +86,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <input type="text" class="form-control"  name="date_of_join"
+                            <input type="date" class="form-control"  name="date_of_join" id="date_of_join"
                                     value="{{$user->date_of_join}}">
                             </div>
                             <!-- /.input group -->
@@ -98,7 +101,12 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-home"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="office_id" value="{{ $user->offices->officeName }}">
+                            <select class="form-control" name="office_id" id="office" >
+                                <option value="{{ $user->office->id }}">{{ $user->office->officeName }}</option>
+                                @foreach ($offices as $office)
+                                    <option value="{{ $office->id }}">{{ $office->officeName }}</option>
+                                @endforeach
+                            </select>
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -111,7 +119,13 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-user-circle"></i></span>
                             </div>
-                                <input type="text" class="form-control" name="district_id" value="{{ $user->districts->districtName }}">
+                            <select class="form-control" name="district_id" value="" id="district">
+                                    <option value="{{ $user->districts->id }}">{{ $user->districts->districtName }}</option>
+                                @foreach ($districts as $district)
+                                    <option value="{{ $district->id }}">{{ $district->districtName }}</option>
+                                @endforeach
+                            </select>
+                                
                             </div>
 
 
@@ -123,8 +137,10 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-circle"></i></span>
                             </div>
-                         
-                                <input type="text" class="form-control" name="circle_id" value="{{ $user->circles->circleName }}">
+                            <select class="form-control"  name="circle_id" id="circle">
+                                <option value="{{ $user->circles->id }}">{{ $user->circles->circleName }}</option>
+                               
+                            </select>
                             </div>
                         </div>
 
@@ -135,7 +151,11 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-divide"></i></span>
                             </div>
-                                <input type="text" class="form-control" name="circle_id" value="{{ $user->divisions->divisionName }}">
+                            <select class="form-control" name="division_id" id="division" >
+                                <option value="{{ $user->divisions->id }}">{{ $user->divisions->divisionName }}</option>
+                               
+                            </select>
+                                
                             </div>
 
                         </div>
@@ -159,8 +179,10 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-road"></i></span>
                             </div>
-                            <input type="text" class="form-control"
-                            name="range_id" value="{{ $user->ranges->rangesName }}">
+                            <select class="form-control"  name="range_id" id="range" >
+                                <option value="{{ $user->ranges->id }}">{{ $user->ranges->rangesName }}</option>
+                               
+                            </select>
                             </div>
 
                         </div>
@@ -173,7 +195,7 @@
                                 <span class="input-group-text"><i class="fa fa-book"></i></span>
                             </div>
                             <input type="text" class="form-control"
-                                name="office_address" value="{{$user->office_address}}">
+                                name="office_address" id="office_address" value="{{$user->office_address}}">
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -187,7 +209,7 @@
                                 <span class="input-group-text"><i class="fa fa-male"></i></span>
                             </div>
                             <input type="text" class="form-control"
-                                name="gender" value="{{$user->gender}}">
+                                name="gender" id="gender" value="{{$user->gender}}">
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -200,7 +222,7 @@
                                 <span class="input-group-text"><i class="fa fa-school"></i></span>
                             </div>
                             <input type="text" class="form-control"
-                                name="qualification" value="{{$user->qualification}}">
+                                name="qualification" id="qualification" value="{{$user->qualification}}">
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -213,7 +235,7 @@
                                 <span class="input-group-text"><i class="fa fa-male"></i></span>
                             </div>
                             <input type="text" class="form-control"
-                                name="username" value="{{$user->username}}">
+                                name="username" id="username" value="{{$user->username}}">
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -226,7 +248,7 @@
                                 <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                             </div>
                             <input type="text" class="form-control"
-                                name="email" value="{{$user->email}}">
+                                name="email" id="email" value="{{$user->email}}">
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -239,7 +261,7 @@
                                     <span class="input-group-text"><i class="fa fa-phone"></i></span>
                                 </div>
                                 <input type="text" class="form-control"
-                                    name="contact" value="{{$user->contact}}">
+                                    name="contact" id="contact" value="{{$user->contact}}">
                             </div>
 
 
@@ -252,7 +274,7 @@
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-running"></i></span>
-                                    <select  name="status">
+                                    <select  name="status" id="status">
                                         <option value="{{$user->status}}" style="color: black;  font-weight:900;">{{$user->status }}</option>
                                         <option value="1" style="color: green;  font-weight:900;">Approve</option>
                                         <option value="0" style="color: red; font-weight:900;">Reject</option>
@@ -295,5 +317,58 @@
         }
     });
     </script>
+
+
+<script >
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $(document).ready(function () {
+        $('#district').on('change',function(e) {
+            var dist_id = e.target.value;
+            $.ajax({
+                url:"{{ route('ajax-circle') }}",
+                data: {
+                    dist_id: dist_id
+                },
+                success:function (data) {
+                    $('#circle').empty();
+                    $.each(data.circles[0].circles,function(index,circles){
+                        $('#circle').append('<option value="'+circles.id+'">'+circles.circleName+'</option>');
+                    })
+
+                    $('#division').empty();
+                        $.each(data.divisions[0].divisions, function(index, divisions){
+                        $('#division').append('<option value="'+divisions.id+'">'+divisions.divisionName+'</option>');
+                    })
+                    $('#range').empty();
+                    $.each(data.ranges[0].ranges, function(index, ranges){
+                        $('#range').append('<option value="'+ranges.id+'">'+ranges.rangesName+'</option>');
+                    })
+
+                    $(document).ready(function (){
+                        $('#division').on('change', function(e){
+                            var id = e.target.value;
+                            $.ajax({
+                                url:"{{ route('ajax-ranges') }}",
+                                data:{
+                                    id: id
+                                },
+                                success:function(data){
+                                    $('#range').empty();
+                                    $.each(data.ranges[0].ranges, function(index, ranges){
+                                        $('#range').append('<option value="'+ranges.id+'">'+ranges.rangesName+'</option>');
+                                    })
+                                }
+                            })
+                        })
+                    })
+                }
+            })
+        });
+    });
+</script>
 
 @endsection

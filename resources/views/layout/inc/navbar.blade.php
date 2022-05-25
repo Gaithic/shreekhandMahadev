@@ -1,5 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{{ route('user.index') }}">Navbar</a>
+    @if(Auth::check())
+      @if(Route::has('login-users'))
+        <a class="navbar-brand" href="{{ route('show-activities') }}">Home</a>    
+      @endif
+    @else
+      <a class="navbar-brand" href="{{ route('user.index') }}">Navbar</a>
+
+    @endif
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -32,6 +39,16 @@
             @endif
           @else
               <a class="nav-link" href="#">Contact Us</a>
+          @endif
+        </li>
+
+        <li class="nav-item">
+          @if(Auth::check())
+            @if(Route::has('login-users'))
+              <a class="nav-link" href="{{ route('user.index') }}">Create Activity</a>
+            @endif
+          @else
+              <a class="nav-link" href="#"></a>
           @endif
         </li>
       </ul>

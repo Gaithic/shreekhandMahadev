@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminCreateUserValidation;
+use App\Models\Activity;
 use App\Models\Circle;
 use App\Models\District;
 use App\Models\Division;
@@ -11,8 +12,10 @@ use App\Models\OfficesName;
 use App\Models\Range;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Action;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\Facades\DataTables;
 
 
@@ -41,11 +44,19 @@ class AdminController extends Controller
         return view('users.admin.manageusers');
     }
 
-    public function editUsers( $id){
+    public function editUsers($id){
+        $offices = OfficesName::all();
+        $districts = District::all();
+        $circles = Circle::all();
+        $ranges = Range::all();
         $user = User::findOrFail($id);
         return view('users.admin.edituser',
         [
             'user' => $user,
+            'offices' => $offices,
+            'districts' => $districts,
+            'ranges' => $ranges,
+            'circles' => $circles
             
 
         ]);
@@ -68,10 +79,10 @@ class AdminController extends Controller
               'circles' => $circle_id,
               'circles' => $circles,
               'divisions' => $divisions,
+              'offices' => $offices,
               'divisions' => $division_id,
               'ranges' => $range_id,
-              'ranges' => $ranges,
-              'offices' => $offices
+              'ranges' => $ranges
         ])->with('success', "Let's Create new Employee");
     }
 
@@ -96,8 +107,11 @@ class AdminController extends Controller
     public function adminGetRanges(Request $request){
         $division_id = $request->id;
         $ranges = Division::where('id', $division_id)->with('ranges')->get();
+        $districts = District::all();
+        $offices = OfficesName::all();
         return response()->json([
             'ranges' => $ranges,
+            'districts' => $districts, 
         ]);
     }
 
@@ -171,8 +185,91 @@ class AdminController extends Controller
         }
     }
 
-   
 
+
+    public function showHoliday(){
+        $holidays = Holidays::all();
+        return view('users.admin.showAllHoliday',[
+            'holidays' => $holidays
+        ]);
+    }
+
+    public function manageHolidays(Request $request){
+        if($request->ajax()){
+            $data= Holidays::query()->orderBy("id", "desc");
+
+            return DataTables::of($data)
+                ->addIndexColumn()->addColumn('action', function($row){
+                    $btn= '<a href="'.route('edit-holidays', ['id' => $row->id]).'"class=dit btn btn-primay btn-sm>View</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])->make(true);
+
+
+        }
+        return view('users.admin.createholiday');
+    }
+
+
+    public function editHolidays($id){
+        $holidays = Holidays::findOrFail($id);
+        return view('users.admin.edit-holiday',[
+            'holidays' => $holidays
+        ]);
+    }
+
+    public function updateHoliday(Request $request, $id){
+        $holidays = Holidays::findOrFail($id);
+        $holidays->holiday_name	= $request->holiday_name;
+        $holidays->holiday_date = $request->holiday_date;
+        $res = $holidays->save();
+        if($res){
+            return redirect()->intended(route('edit-holidays', ['id' => $holidays->id]))->with('success', 'Holiday Updated Successfully!!');
+        }else{
+            return redirect()->intended(route('edit-holidays', ['id' => $holidays->id]))->with('error', 'Oops something went wrong!!');
+        }
+    }
+
+
+
+    public function viewAllUserActivities(Request $request){
+        if($request->ajax()){
+            $data= Activity::query()->orderBy("id", "desc");
+
+            return DataTables::of($data)
+                ->addIndexColumn()->addColumn('action', function($row){
+                    $btn= '<a href="'.route('edit-activity', ['id' => $row->id]).'"class=dit btn btn-primay btn-sm>View</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])->make(true);
+
+
+        }
+        return view('users.admin.usersAllActivities');
+    }
+
+
+    public function editUserActivity($id){
+        $activities = Activity::findOrFail($id);
+        return view('users.admin.editUserActivity',
+        [
+            'activities' => $activities
+        ]);
+    }
+    
+
+    public function updateUserActivity(Request $request, $id){
+        $activities = Activity::findOrFail($id);
+        $activities->user_id = $request->user_id;
+        $activities->name = $request->name;
+        $activities->description = $request->description;
+        $activities->activityName = $request->activityName;
+        $activities->datetime = $request->datetime;
+        $res = $activities->save();
+        if($res){
+            return back()->with('success', "Activity Updated Successfully!!");
+        }
+    }
  
 
     public function destroy($id){

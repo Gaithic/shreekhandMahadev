@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\userActivity;
 use App\Models\Activity;
+use App\Models\Holidays;
 use App\Models\OfficesName;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -40,10 +43,30 @@ class UserController extends Controller
         $activity->name = $request->name;
         $activity->description = $request->description;
         $activity->datetime  = $request->datetime;
-        $activity->	activityName = $request->activityName;	
+        $activity->activityName = $request->activityName;
+        $activity->user_id = Auth::user()->id;
+        	
         $res = $activity->save();
         if($res){
             return redirect()->intended(route('user.index'))->with('success', 'Task Created Successfully!!');
         }
+    }
+
+    public function showAllActivity(Request $request){
+        
+        if($request->ajax()){
+            $user = Auth::user();
+            $data= Activity::query()->orderBy("id", "desc");
+
+            return DataTables::of($data)
+                ->addIndexColumn()->addColumn('action', function($row){
+                    $btn= '<a href="'.route('edit-holidays', ['id' => $row->id]).'"class=dit btn btn-primay btn-sm>View</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])->make(true);
+
+
+        }
+        return view('users.users.showAllActivity');
     }
 }

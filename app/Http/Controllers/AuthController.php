@@ -95,6 +95,7 @@ class AuthController extends Controller
         $user->isadmin  = 0;
         $user->status = 0;
         $res = $user->save();
+        
         if($res){
             return redirect()->intended(route('login-view'))->with('message', 'Your account is created Kindly Wait for Admin Approval!!');
         }else{
@@ -108,6 +109,7 @@ class AuthController extends Controller
 
 
     public function loginUsers(LoginValidation $request){
+        // dd(date('Y-m-d'));
         $local_holiday = Holidays::whereDate('holiday_date', Carbon::today())->get()->first();
         if($local_holiday){
             $local_holiday = $local_holiday->holiday_date;
@@ -120,8 +122,7 @@ class AuthController extends Controller
         $first_w=$firstday->format('w');
         $saturday1=new DateTime;
         $saturday1->setDate($year,$month,14-$first_w);
-        $holiday = $saturday1->format('l');
-
+        $holiday = $saturday1->format('Y-m-d');
 
         if($date == $local_holiday){
             return redirect()->intended(route('login-view'))->with('success', 'Today is off!! try on working Days');
@@ -129,7 +130,7 @@ class AuthController extends Controller
             if($date1=="Sunday"){
                 return redirect()->intended(route('login-view'))->with('success', 'Today is off!! try on working Days');
            }else{
-                if($date1 == $holiday){
+                if($date == $holiday){
                     return redirect()->intended(route('login-view'))->with('success', 'Today is Second Saturday!! try on working Days');
                 }else{
                     $credentials = $request->only('username', 'password');

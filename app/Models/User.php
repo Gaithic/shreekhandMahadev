@@ -43,9 +43,9 @@ class User extends Authenticatable
     ];
 
 
-    public function offices()
+    public function office()
     {
-       return $this->belongsTo(OfficesName::class, 'district_id');
+       return $this->belongsTo(OfficesName::class, 'office_id');
     }
 
     public function districts()
