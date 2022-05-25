@@ -110,7 +110,7 @@
                         <div style="margin: 5px;">
                             <span id="date_of_joiningError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                         </div>
-                        
+
                         @error('date_of_joining')
                         <div class="alert alert-danger" role="alert">
                             <small>
@@ -135,7 +135,7 @@
                             @endforeach
                         </select>
                         </div>
-                        
+
                         <div style="margin: 5px;">
                             <span id="officeError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                         </div>
@@ -166,7 +166,7 @@
                             </select>
 
                         </div>
-                            
+
                         <div style="margin: 5px;">
                             <span id="districtError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                         </div>
@@ -248,7 +248,7 @@
                         </div>
                     </div>
 
-                    
+
                     @error('range')
                     <div class="alert alert-danger" role="alert">
                         <small>
@@ -336,7 +336,7 @@
                         </div>
                         <!-- /.input group -->
 
-                        
+
                         <div style="margin: 5px;">
                             <span id="qualificationError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                         </div>
@@ -430,11 +430,11 @@
                             <span class="input-group-text"><i class="fa fa-lock"></i></span>
                         </div>
                         <input type="password" class="form-control"
-                            name="password"  id="cpassword">
+                            name="comfirm_password"  id="comfirm_password">
                         </div>
 
                         <div style="margin: 5px;">
-                            <span id="cpasswordError"  style="color: red; font-size:15px; font-weight:700;" ></span>
+                            <span id="confirmError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                         </div>
                         <!-- /.input group -->
                         @error('password')

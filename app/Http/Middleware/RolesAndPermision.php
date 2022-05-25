@@ -17,18 +17,16 @@ class RolesAndPermision
      */
     public function handle(Request $request, Closure $next)
     {
-        
-        return $next($request);
+
         if(Auth::check()){
             if(auth()->user()->status == 0){
                 return redirect()->intended(route('login-view'))->with('error', 'Your account is not approved by admin, Wait for admin approval!!');
-                
-            }elseif(auth()->user()->isAdmin == 0){
-                return redirect()->intended(route('login-view'))->with('error', "You don't have a admin access");
-            }else{
-                return redirect()->intended(route('login-users'));
 
+            }else{
+                return $next($request);
             }
+        }else{
+            return redirect()->intended(route('login-view'))->with('error', 'Your account is logged out from same browser but from different web page!!');
         }
     }
 }

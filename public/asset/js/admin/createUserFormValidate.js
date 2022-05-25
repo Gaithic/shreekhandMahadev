@@ -84,7 +84,7 @@ function createUserForm(){
             var birthDayFullYear = birthDay.getFullYear();
             var birthDayFullMonth = birthDay.getMonth();
             var birthDayFullDate  = birthDay.getDate();
-    
+
 
             var getJoiningYear = userJoiningYear.getFullYear();
             var getJoiningMonth  = userJoiningYear.getMonth();
@@ -149,7 +149,7 @@ function createUserForm(){
     }
 
 
-    
+
     const range = document.getElementById('range').value;
     if(range===""){
         document.getElementById('rangeError').innerHTML ="Kindly fill Employee Range!!";
@@ -224,15 +224,15 @@ function createUserForm(){
     }else{
         document.getElementById('emailError').innerHTML="";
     }
-    
+
   //contact field input validation
-  
+
 
 
 
 
     const password = document.getElementById('password').value;
-    const cPassword = document .getElementById('cPassword').value;
+    const cPassword = document .getElementById('comfirm_password').value;
     if(password===""){
         document.getElementById('passwordError').innerHTML ="Kindly fill Employee Password!!";
         return false;
@@ -240,7 +240,7 @@ function createUserForm(){
 
 
     if(cPassword===''){
-        document.getElementById('cPasswordError').innerHTML = "kindly confirm  your password";
+        document.getElementById('confirmError').innerHTML = "kindly confirm  your password";
         return false;
     }else{
         document.getElementById('passwordError').innerHTML = "";
@@ -249,7 +249,7 @@ function createUserForm(){
 
     //match password and confirm password
     if(password!=cPassword){
-        document.getElementById('cPasswordError').innerHTML = "Password is not match";
+        document.getElementById('cPasswordError').innerHTML = "Password does not match";
         return false;
     }else{
         document.getElementById('passwordError').innerHTML = "";
@@ -257,9 +257,9 @@ function createUserForm(){
 
 
 
-    
-    
-    
+
+
+
     const status = document.getElementById('status').value;
     if(status===""){
         document.getElementById('statusError').innerHTML ="Kindly Select Employee Status!!";
@@ -270,11 +270,11 @@ function createUserForm(){
     if(isadmin===""){
         document.getElementById('isadminError').innerHTML ="Kindly select Employee Role!!";
         return false;
-    }   
+    }
 
 
     const contact = document.getElementById('contact').value;
-    if(contact==''){
+    if(contact===''){
         document.getElementById('contactError').innerHTML=" ** Please Enter Valid contact number";
         return false;
     }else{

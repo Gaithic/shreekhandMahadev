@@ -95,9 +95,9 @@ class AuthController extends Controller
         $user->isadmin  = 0;
         $user->status = 0;
         $res = $user->save();
-        
+
         if($res){
-            return redirect()->intended(route('login-view'))->with('message', 'Your account is created Kindly Wait for Admin Approval!!');
+            return redirect()->intended(route('login-view'))->with('message', " '".$request->username."' Your account is created Kindly Wait for Admin Approval!!");
         }else{
             return redirect()->intended(route('regiter-view'))->with('error', 'Oops Something Went Wrong Kindly try after sometime!');
         }
@@ -176,6 +176,6 @@ class AuthController extends Controller
     }
 
 
-    
+
 
 }
