@@ -6,12 +6,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">All Users</h1>
+          <h1 class="m-0">Edit Activity</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/home">Home</a></li>
-            <li class="breadcrumb-item active">Users</li>
+            <li class="breadcrumb-item active">Activity</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -39,7 +39,7 @@
         <div class="col">
           <div class="card" id="list1" style="border-radius: .75rem; background-color: #eff1f2; padding:10px;">
             <div class="card-body py-4 px-4 px-md-5" style="padding:10px; margin:10px;">
-              
+
 
               <p class="h1 text-center mt-3 mb-4 pb-3 text-center">
 
@@ -56,7 +56,7 @@
                   <div class="card-body">
                     <div class="d-flex flex-row align-items-center" style="padding:10px;">
                       <label style="padding:10px;">Name:</label>
-                     <input type="text" placeholder="Add Activity name" name="name" id="name" 
+                     <input type="text" placeholder="Add Activity name" name="name" id="name"
                      class="form-control" value="{{ $activity->name }}" />
                       <span id="nameError" style="color: red;"></span>
                       <a href="#!" data-mdb-toggle="tooltip" title="Set due date"></a>
@@ -80,7 +80,7 @@
                   <div class="card-body" >
                     <div class="d-flex flex-row align-items-center">
                       <label style="padding:10px;" >Date:</label>
-                     <input type="text" name="datetime" id="datetime"  
+                     <input type="text" name="datetime" id="datetime"
                      class="form-control" value="{{  $activity->datetime }}"  />
                      <span id='dateError' style="color: red;"></span>
                       <a href="#!" data-mdb-toggle="tooltip" title="Set due date"></a>
@@ -105,7 +105,7 @@
                     <div class="d-flex flex-row align-items-center">
                       <label style="padding:10px;" >Activity:</label>
                       <select name="activityName" id="activity" class="form-control">
-                        <option value="">{{ $activity->activityName }}</option>
+                        <option value="{{ $activity->activityName }}">{{ $activity->activityName }}</option>
                         <option value="office">Office</option>
                         <option value="field visit">Field visit</option>
                         <option value="tour">Tour</option>
@@ -157,9 +157,9 @@
 
 
 
-         
-    
-     
+
+
+
             </div>
           </div>
         </div>

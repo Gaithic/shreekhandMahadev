@@ -13,6 +13,8 @@ use Illuminate\Notifications\Action;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Yajra\DataTables\Facades\DataTables;
+use App\Rules\MatchOldPassword;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -20,7 +22,7 @@ class UserController extends Controller
         $user   = User::all();
         $offices = OfficesName::all();
         $office_d = OfficesName::where('id', 0)->get();
-     
+
         return view('users.users.dashboard',[
             'user' => $user,
             'offices' => $offices,
@@ -30,7 +32,7 @@ class UserController extends Controller
 
 
 
-    public function getOffices(Request $request){        
+    public function getOffices(Request $request){
 
         $parent_id = $request->activity_id;
         $offices = OfficesName::where('office_id', $parent_id)
@@ -41,14 +43,14 @@ class UserController extends Controller
         ]);
     }
 
-    public function saveActivity(userActivity $request){ 
+    public function saveActivity(userActivity $request){
         $activity = new Activity();
         $activity->name = $request->name;
         $activity->description = $request->description;
         $activity->datetime  = $request->datetime;
         $activity->activityName = $request->activityName;
         $activity->user_id = Auth::user()->id;
-        	
+
         $res = $activity->save();
         if($res){
             return redirect()->intended(route('user.index'))->with('success', 'Task Created Successfully!!');
@@ -78,21 +80,48 @@ class UserController extends Controller
         ]);
     }
 
-    public function updateOwnActivity(){
-        $today = date('y-m-d');
-        // $activity = Activity::whereDate('created_at', Carbon::today())->get()->first();
-        // $activity = Activity::whereDate('created_at', Carbon::today())->get()->first();
-        // $checkDate = date('Y-m-d', strtotime($activity->created_at));
-        
-        // dd($checkDate);
-        // $activity->time = date('Y-m-d', strtotime($activity));
-        // if($today > $activity->time){
-        //     return back()->with('error' , "You dont have a acess to Edit Previous Post!!");
-        // }else{
-            
-        // }
-        
-        $activity = Activity::all();
-        dd($activity->created_at);
+
+
+    public function updateOwnActivity(Request $request, $id){
+        $activity = Activity::findOrFail($id);
+        $today = date('Y-m-d');
+        if($today>$activity->created_at){
+            return back()->with('error', "Sorry you don't have a permission to Edit the Previous days activities...");
+        }else{
+            $activity->name = $request->name;
+            $activity->description = $request->description;
+            $activity->datetime  = $request->datetime;
+            $activity->activityName = $request->activityName;
+            $res = $activity->save();
+
+            if($res){
+                return back()->with('success', 'Activity Updated Successfully...');
+            }else{
+                return back()->with('success', 'Something Went Wrong!!, Try again Later...');
+            }
+        }
+
+
+    }
+
+    public function getPassword(){
+        return view('users.users.changePassword');
+    }
+
+    public function storeNewPassword(Request $request){
+        $request->validate([
+
+            'current_password' => ['required', new MatchOldPassword],
+
+            'new_password' => ['required'],
+
+            'new_confirm_password' => ['same:new_password'],
+
+        ]);
+
+
+
+        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+
     }
 }

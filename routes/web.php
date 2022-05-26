@@ -62,7 +62,7 @@ Route::group(['prefix' => 'admin', 'middleware' =>['isadmin']], function(){
     Route::get('/edit/activity/{id}', [AdminController::class, 'editUserActivity'])->name(('edit-activity'));
     Route::post('/update/activity/{id}', [AdminController::class, 'updateUserActivity'])->name(('update-activity'));
 
-    
+
 
 });
 
@@ -75,6 +75,8 @@ Route::group(['prefix' => 'users', 'middleware' => ['auth']], function(){
     Route::get('/show/allActivities', [UserController::class, 'showAllActivity'])->name('show-activities');
     Route::get('/edit/activity/{id}', [UserController::class, 'editOwnActivity'])->name('edit-activity');
     Route::post('/update/activity/{id}', [UserController::class, 'updateOwnActivity'])->name('update-activity');
+    Route::get('/get/password/form', [UserController ::class, 'getPassword'])->name('get-password');
+    Route::post('/update/password/form', [UserController ::class, 'storeNewPassword'])->name('save-password');
 
 });
 
