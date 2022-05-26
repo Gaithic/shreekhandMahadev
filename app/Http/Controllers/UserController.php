@@ -80,16 +80,19 @@ class UserController extends Controller
 
     public function updateOwnActivity(){
         $today = date('y-m-d');
-        $activity = Activity::where('created_at', Carbon::today())->get()->first();
-        $checkDate = strtotime($activity->created_at, date('Y-m-d'));
-        // $activity->time = date('Y-m-d',$checkDate);
-        dd($checkDate);
-        if($today > $activity->time){
-            return back()->with('error' , "You dont have a acess to Edit Previous Post!!");
-        }else{
+        // $activity = Activity::whereDate('created_at', Carbon::today())->get()->first();
+        // $activity = Activity::whereDate('created_at', Carbon::today())->get()->first();
+        // $checkDate = date('Y-m-d', strtotime($activity->created_at));
+        
+        // dd($checkDate);
+        // $activity->time = date('Y-m-d', strtotime($activity));
+        // if($today > $activity->time){
+        //     return back()->with('error' , "You dont have a acess to Edit Previous Post!!");
+        // }else{
             
-        }
+        // }
         
-        
+        $activity = Activity::all();
+        dd($activity->created_at);
     }
 }

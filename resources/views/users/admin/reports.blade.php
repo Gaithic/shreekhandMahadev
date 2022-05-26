@@ -60,7 +60,7 @@
                                   <label>Districts:</label>
                                   <select class="select2" style="width: 100%;" id="district" name="district_id">
                                       <option value="">Select District Name</option>
-                                      @foreach ($districts as $district)
+                                      @foreach ($activity as $district)
                                         <option value="{{ $district->id }}">{{ $district->districtName }}</option>
                                       @endforeach
                                   </select>
@@ -126,50 +126,50 @@
                               </div>
                           </div>
                       </div>
-                        <div class="list-group-item">
-                         
-                      
-                            <div class="list-group-item">
-                                <div class="row">
-                                  
-                                        <div>
-                                            <div class="card-body">
-                                                <canvas class="chart has-fixed-height" id="reports"></canvas>
-                                            </div>
-                                            
-                                        </div>
-                               
-                                </div>
-                            </div>
+                      <div class="card card-danger">
+                        <div class="card-header">
+                          <h3 class="card-title">Pie Chart</h3>
+          
+                          <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                              <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
                         </div>
+                        <div class="card-body">
+                          <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                      </div>
                   </div>
               </div>
           </div>
       </div>
   </section>
-@endsection
-<script src="{{(asset('/asset/ajax/ajax.js'))}}"></script>
+
 <script src="{{ asset('/asset/admin/plugins/chart.js/Chart.min.js')}}"></script>
 <script>
-    
-    let labels=[];
-    let data=[];
+    let activity = '<?php echo json_encode($activity) ?>';
 
-    
-    let districts = '<?php echo json_encode($districts)?>';
-    let jsonDist =JSON.parse(districts);
+    let jsonDist = JSON.parse(activity);
+// console.log(jsonDist);
+let labels=[];
+let data=[];
 
-    for(var i=0;i<jsonDist.length;i++){
-        labels.push(jsonDist[i].districtName);
-        data.push(jsonDist[i].userCount);
-    }
-
+for(var i=0;i<jsonDist.length;i++){
+    labels.push(jsonDist[i].activityName);
+    data.push(jsonDist[i].userCount);
+}
 
 
+console.log(labels,data);
 
-    const ctx = document.getElementById('reports');
-    const myChart = new Chart(ctx, {
-    type: 'bar',
+const ctx = document.getElementById('pieChart');
+const myChart = new Chart(ctx, {
+    type: 'pie',
     data: {
         labels:labels,
         datasets: [{
@@ -193,30 +193,77 @@
                 'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 1
+            
         }]
     },
     options: {
         scales: {
             y: {
-                beginAtZero: true
+                beginAtZero: false
             }
         }
     }
 });
 
-var getData = function() {
-    var e = document.getElementById("name");
-    var strUser = e.value;
-      $.ajax({
-        url:"{{ route('ajax-circle') }}",
-        success: function(data) {
+// var pie_basic_element = document.getElementById('pieChart');
+// if (pie_basic_element) {
+//     var pie_basic = echarts.init(pie_basic_element);
+//     pie_basic.setOption({               
+        
+//         textStyle: {
+//             fontFamily: 'Roboto, Arial, Verdana, sans-serif',
+//             fontSize: 13
+//         },
 
-          myChart.data.labels.push("Label");
-          myChart.data.datasets[0].data.push('set point');
-          
-          myChart.update();
-        }
-      });
-};
+//         title: {
+//             text: 'Pie Chart Example',
+//             left: 'center',
+//             textStyle: {
+//                 fontSize: 17,
+//                 fontWeight: 500
+//             },
+//             subtextStyle: {
+//                 fontSize: 12
+//             }
+//         },
+
+//         tooltip: {
+//             trigger: 'item',
+//             backgroundColor: 'rgba(0,0,0,0.75)',
+//             padding: [10, 15],
+//             textStyle: {
+//                 fontSize: 13,
+//                 fontFamily: 'Roboto, sans-serif'
+//             },
+//             formatter: "{a} <br/>{b}: {c} ({d}%)"
+//         },
+
+//         legend: {
+//             orient: 'horizontal',
+//             bottom: '0%',
+//             left: 'center',                   
+//             data: ['Fruit', 'Vegitable','Grains'],
+//             itemHeight: 8,
+//             itemWidth: 8
+//         },
+
+//         series: [{
+//             name: 'Product Type',
+//             type: 'pie',
+//             radius: '70%',
+//             center: ['50%', '50%'],
+//             itemStyle: {
+//                 normal: {
+//                     borderWidth: 1,
+//                     borderColor: '#fff'
+//                 }
+//             },
+//             data: [
+//                data
+//             ]
+//         }]
+//     });
+// // }
+
 </script>
-
+@endsection

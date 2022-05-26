@@ -51,10 +51,10 @@
             
            
           </table>
-        <div class="card-body">
-          
-            <canvas class="chart has-fixed-height" id="pie-chart"></canvas>
-        </div>
+          <div class="card-body">
+            
+              <canvas class="chart has-fixed-height" id="pie-chart"></canvas>
+          </div>
         <!-- /.card-body -->
       </div>
 </div>

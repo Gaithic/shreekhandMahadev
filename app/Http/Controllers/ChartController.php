@@ -17,14 +17,19 @@ class ChartController extends Controller
 {
     public function employeesReportsView(){
         $user = User::all();
+        $activity = Activity::all();
         $districts = District::all();
+        foreach($activity as $dst){
+            $dst->userCount= DB::table('users')->whereDistrictId($dst->id)->count();
+        }
+
         foreach($districts as $dst){
             $dst->userCount= DB::table('users')->whereDistrictId($dst->id)->count();
         }
         
         return view('users.admin.reports',[
             'user' => $user,
-            'districts' => $districts
+            'activity' => $activity
         ]);
     }
 
