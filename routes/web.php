@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\Logscontroller;
 use App\Http\Controllers\ForgetPasswordController;
 use Illuminate\Support\Facades\Route;
 
@@ -72,5 +73,12 @@ Route::group(['prefix' => 'users', 'middleware' => ['auth']], function(){
     Route::get('/dashboard', [UserController::class, 'usersDashboard'])->name('user.index');
     Route::post('/save-activity', [UserController::class,'saveActivity'])->name(('save-activity'));
     Route::get('/show/allActivities', [UserController::class, 'showAllActivity'])->name('show-activities');
+    Route::get('/edit/activity/{id}', [UserController::class, 'editOwnActivity'])->name('edit-activity');
+    Route::post('/update/activity/{id}', [UserController::class, 'updateOwnActivity'])->name('update-activity');
 
+});
+
+Route::group(['prefix' => 'logs'], function(){
+    Route::get('add-to-log', [Logscontroller::class, 'applicationLogs'])->name('add-logs');
+    Route::get('logActivity', [Logscontroller::class, 'logActivity'])->name('logs-activity');
 });

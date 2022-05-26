@@ -33,9 +33,9 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Description	</th>
-                            <th>Activity Name</th>
-                            <th>Date Of Holiday</th>
+                            <th>Date of Holiday	</th>
+                            <th>Holiday Creation Date</th>
+                            <th>Holiday Updated Date</th>
                             <th>Action</th>
                         </tr>
                     </thead>

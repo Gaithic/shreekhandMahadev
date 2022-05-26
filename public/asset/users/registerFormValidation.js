@@ -77,19 +77,32 @@ function validateForm(){
         var inputDate  = userInputYear.getDate();
 
         var differenceAge = theYear - inputYear;
+        var dfferenceMonth = theMonth - inputMonth;
+        var differenceDate = theDate - inputDate;
 
         if(differenceAge > 100){
             document.getElementById('dobError').innerHTML= "Age not be grater than 100 Years!!";
             return false;
-        }else{
-            if(differenceAge <=18 ){
-                document.getElementById('dobError').innerHTML= "Age should be grater than 18 year!!";
-                return false;
+        }else if(differenceAge==18 && dfferenceMonth<=0 && differenceDate<=0 || differenceAge<18 ){
+            document.getElementById('dobError').innerHTML= "Age should be grater than 18 year!!";
+        }
+        else{
+            if(dfferenceMonth<0 || (dfferenceMonth == 0 && differenceDate<0)){
+                differenceAge = parseInt(differenceAge) -1;
+                if(differenceAge<18){
+                    document.getElementById('dobError').innerHTML= "Age not be less than 18 Year!!";
+                    return false;
+                }else{
+                    document.getElementById('dobError').innerHTML= "";
+                }
             }else{
                 document.getElementById('dobError').innerHTML= "";
             }
-
         }
+            
+
+
+        
     }
 
 
@@ -129,25 +142,29 @@ function validateForm(){
                 document.getElementById('dojError').innerHTML= "Age Difference Between Date of birth and Date of Joining Must be equal to grater than 18 Years!! ";
                 console.log(getDifference);
                 return false;
-           }else if((getMonthDifference<0) && (getDateDifference<0) && (getDateOfday<0)){
-                document.getElementById('dojError').innerHTML= "Age Difference Between Date of birth and Date of Joining Must be equal to grater than 18 Years!! ";
+            }else if(getDifference==18 && getMonthDifference<=0 && getDateDifference<=0 || getDifference<18 ){
                 console.log(getDifference);
-                return false;
-           }
-           else{
-                var todayDate = new Date();
-                var getTodayFullDate = todayDate.getFullYear()+'-'+('0' + (todayDate.getMonth()+1)).slice(-2)+'-'+todayDate.getDate();
-                if(date_of_joining>getTodayFullDate){
-                    document.getElementById('dojError').innerHTML= "Date not be grater than today!!";
-                    return false;
+                document.getElementById('dojError').innerHTML=  "Employee Age should be grater than 18 year!!";
+            }else{
+                if(getMonthDifference<0 || (getMonthDifference == 0 && getDateDifference<0)){
+                    getDifference = parseInt(getDifference) -1;
+                    if(getDifference<18){
+                        document.getElementById('dojError').innerHTML= "Age not be less than 18 Year!!";
+                        return false;
+                    }else{
+                        document.getElementById('dojError').innerHTML= "";
+                    }
                 }else{
-                    document.getElementById('dojError').innerHTML= "";
-                    console.log(getDifference);
-                    console.log(getMonthDifference);
-                    console.log(getDateDifference);
-                    console.log(getDateOfday);
-                    // console.log(month_diff);
+                    var todayDate = new Date();
+                    var getTodayFullDate = todayDate.getFullYear()+'-'+('0' + (todayDate.getMonth()+1)).slice(-2)+'-'+todayDate.getDate();
+                    if(date_of_joining>getTodayFullDate){
+                        document.getElementById('dojError').innerHTML= "Date not be grater than today!!";
+                        return false;
+                    }else{
+                        document.getElementById('dojError').innerHTML= "";
+                    }
                 }
+             
             }
         }
     }

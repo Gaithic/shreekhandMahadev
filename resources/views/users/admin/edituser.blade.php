@@ -60,6 +60,10 @@
                             </div>
                             <input type="text" class="form-control" name="designation" id="designation" value="{{$user->designation}}">
                             </div>
+                            <div style="margin: 5px;">
+                                <span id="designationError"  style="color: red; font-size:15px; font-weight:700;" ></span>
+                            </div>
+
                             <!-- /.input group -->
                         </div>
                         <!-- /.form group -->
@@ -74,6 +78,9 @@
                             </div>
                             <input type="date" class="form-control" name="date_of_birth" id="date_of_birth" value="{{$user->date_of_birth}}">
                             </div>
+                            <div style="margin: 5px;">
+                                <span id="dobError"  style="color: red; font-size:15px; font-weight:700;" ></span>
+                            </div>
                             <!-- /.input group -->
                         </div>
                         <!-- /.form group -->
@@ -86,8 +93,11 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <input type="date" class="form-control"  name="date_of_join" id="date_of_join"
+                            <input type="date" class="form-control"  name="date_of_join" id="date_of_joining"
                                     value="{{$user->date_of_join}}">
+                            </div>
+                            <div style="margin: 5px;">
+                                <span id="dojError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -108,6 +118,9 @@
                                 @endforeach
                             </select>
                             </div>
+                            <div style="margin: 5px;">
+                                <span id="officeError"  style="color: red; font-size:15px; font-weight:700;" ></span>
+                            </div>
                             <!-- /.input group -->
                         </div>
 
@@ -127,6 +140,9 @@
                             </select>
                                 
                             </div>
+                            <div style="margin: 5px;">
+                                <span id="districtError"  style="color: red; font-size:15px; font-weight:700;" ></span>
+                            </div>
 
 
                         </div>
@@ -142,6 +158,9 @@
                                
                             </select>
                             </div>
+                            <div style="margin: 5px;">
+                                <span id="circleError"  style="color: red; font-size:15px; font-weight:700;" ></span>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -156,6 +175,9 @@
                                
                             </select>
                                 
+                            </div>
+                            <div style="margin: 5px;">
+                                <span id="divisionError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                             </div>
 
                         </div>
@@ -184,6 +206,9 @@
                                
                             </select>
                             </div>
+                            <div style="margin: 5px;">
+                                <span id="rangeError"  style="color: red; font-size:15px; font-weight:700;" ></span>
+                            </div>
 
                         </div>
 
@@ -196,6 +221,9 @@
                             </div>
                             <input type="text" class="form-control"
                                 name="office_address" id="office_address" value="{{$user->office_address}}">
+                            </div>
+                            <div style="margin: 5px;">
+                                <span id="office_addressError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -211,6 +239,9 @@
                             <input type="text" class="form-control"
                                 name="gender" id="gender" value="{{$user->gender}}">
                             </div>
+                            <div style="margin: 5px;">
+                                <span id="genderError"  style="color: red; font-size:15px; font-weight:700;" ></span>
+                            </div>
                             <!-- /.input group -->
                         </div>
 
@@ -223,6 +254,9 @@
                             </div>
                             <input type="text" class="form-control"
                                 name="qualification" id="qualification" value="{{$user->qualification}}">
+                            </div>
+                            <div style="margin: 5px;">
+                                <span id="qualificationError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -237,6 +271,9 @@
                             <input type="text" class="form-control"
                                 name="username" id="username" value="{{$user->username}}">
                             </div>
+                            <div style="margin: 5px;">
+                                <span id="usernameError"  style="color: red; font-size:15px; font-weight:700;" ></span>
+                            </div>
                             <!-- /.input group -->
                         </div>
 
@@ -250,9 +287,32 @@
                             <input type="text" class="form-control"
                                 name="email" id="email" value="{{$user->email}}">
                             </div>
+                            <div style="margin: 5px;">
+                                <span id="emailError"  style="color: red; font-size:15px; font-weight:700;" ></span>
+                            </div>
                             <!-- /.input group -->
                         </div>
 
+                        <div class="form-group">
+                            <label>Update Password</label>
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                    
+                                </div>
+                                <input type="password" class="form-control"
+                                    name="password" id="updatepassword" >                                    
+                            </div>
+                            <input type="checkbox" onclick="showPassword()" style="padding: 10px;"> Show Password
+                            <div style="margin: 5px;">
+                                <span id="updateError"  style="color: red; font-size:15px; font-weight:700;" ></span>
+                            </div>
+
+
+                            <!-- /.input group -->
+                        </div>
+                        
                         <div class="form-group">
                             <label>Employee Contact</label>
 
@@ -296,7 +356,7 @@
 
 
                 <div class="form-submit">
-                    <input type="submit" value="Update" class="btn btn-success" id="submit" name="submit" />
+                    <input type="submit" value="Update" class="btn btn-success" id="submit" name="submit" class="submit"/>
                     <a href="{{ route('manage-users')}}">Cancel</a>
                     <a href="{{ route('delete-user', ['id' => $user->id]) }}">Delete</a>
                 </div>
@@ -304,9 +364,21 @@
     </div>
 
 </section>
-
+@push('scripts')
+    <script src="{{ asset('/asset/js/admin/createUserFormValidate.js') }}"></script>
+@endpush
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+   function showPassword(){
+       var showPassword = document.getElementById('updatepassword');
+        if (showPassword.type === "password") {
+            showPassword.type = "text";
+        } else {
+            showPassword.type = "password";
+        }
+   }
+</script>
 <script>
     $("#delete-button").click(function(){
         if(confirm("Are you sure you want to delete this?")){
@@ -316,8 +388,26 @@
             return false;
         }
     });
-    </script>
+</script>
+<script>
+   const togglePassword = document.querySelector("#togglePassword");
+        const password = document.querySelector("#password");
 
+        togglePassword.addEventListener("click", function () {
+            // toggle the type attribute
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            
+            // toggle the icon
+            this.classList.toggle("fa-lock");
+        });
+
+        // prevent form submit
+        const form = document.querySelector("form");
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+        });
+</script>
 
 <script >
     $.ajaxSetup({

@@ -7,8 +7,11 @@ use App\Models\Activity;
 use App\Models\Holidays;
 use App\Models\OfficesName;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Action;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
@@ -53,14 +56,12 @@ class UserController extends Controller
     }
 
     public function showAllActivity(Request $request){
-        
         if($request->ajax()){
-            $user = Auth::user();
-            $data= Activity::query()->orderBy("id", "desc");
+            $data= Activity::where('user_id', '=', Auth::id())->get();
 
             return DataTables::of($data)
                 ->addIndexColumn()->addColumn('action', function($row){
-                    $btn= '<a href="'.route('edit-holidays', ['id' => $row->id]).'"class=dit btn btn-primay btn-sm>View</a>';
+                    $btn= '<a href="'.route('edit-activity', ['id' => $row->id]).'"class=dit btn btn-primay btn-sm>View</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])->make(true);
@@ -68,5 +69,27 @@ class UserController extends Controller
 
         }
         return view('users.users.showAllActivity');
+    }
+
+    public function editOwnActivity($id){
+        $activity = Activity::findOrFail($id);
+        return view('users.users.editActivity', [
+            'activity' => $activity
+        ]);
+    }
+
+    public function updateOwnActivity(){
+        $today = date('y-m-d');
+        $activity = Activity::where('created_at', Carbon::today())->get()->first();
+        $checkDate = strtotime($activity->created_at, date('Y-m-d'));
+        // $activity->time = date('Y-m-d',$checkDate);
+        dd($checkDate);
+        if($today > $activity->time){
+            return back()->with('error' , "You dont have a acess to Edit Previous Post!!");
+        }else{
+            
+        }
+        
+        
     }
 }

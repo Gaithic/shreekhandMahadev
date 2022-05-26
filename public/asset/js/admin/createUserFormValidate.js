@@ -39,8 +39,10 @@ function createUserForm(){
     }
 
     const date_of_birth = document.getElementById('date_of_birth').value;
-    if(date_of_birth===""){
-        document.getElementById('date_of_birthError').innerHTML ="Kindly fill Employee Date of Birth!!";
+    const date_of_joining = document.getElementById('date_of_joining').value;
+   
+    if(date_of_birth==""){
+        document.getElementById('dobError').innerHTML= "Date Of Birth is required";
         return false;
     }else{
         var today = new Date();
@@ -54,29 +56,43 @@ function createUserForm(){
         var inputDate  = userInputYear.getDate();
 
         var differenceAge = theYear - inputYear;
+        var dfferenceMonth = theMonth - inputMonth;
+        var differenceDate = theDate - inputDate;
 
         if(differenceAge > 100){
-            document.getElementById('date_of_birthError').innerHTML= "Age not be grater than 100 Years!!";
+            document.getElementById('dobError').innerHTML= "Age not be grater than 100 Years!!";
             return false;
-        }else{
-            if(differenceAge <=18 ){
-                document.getElementById('date_of_birthError').innerHTML= "Age should be grater than 18 year!!";
-                return false;
-            }else{
-                document.getElementById('date_of_birthError').innerHTML= "";
-            }
-
+        }else if(differenceAge==18 && dfferenceMonth<=0 && differenceDate<=0 || differenceAge<18 ){
+            document.getElementById('dobError').innerHTML= "Age should be grater than 18 year!!";
         }
+        else{
+            if(dfferenceMonth<0 || (dfferenceMonth == 0 && differenceDate<0)){
+                differenceAge = parseInt(differenceAge) -1;
+                if(differenceAge<18){
+                    document.getElementById('dobError').innerHTML= "Age not be less than 18 Year!!";
+                    return false;
+                }else{
+                    document.getElementById('dobError').innerHTML= "";
+                }
+            }else{
+                document.getElementById('dobError').innerHTML= "";
+            }
+        }
+            
+
+
+        
     }
 
 
-    const date_of_joining = document.getElementById('date_of_joining').value;
-    if(date_of_joining===""){
-        document.getElementById('date_of_joiningError').innerHTML ="Kindly fill Employee Date of Joining!!";
+    // date_of_joining input validation
+
+    if(date_of_joining==''){
+        document.getElementById('dojError').innerHTML= "Date of Joining is required";
         return false;
     }else{
         if(date_of_joining <= date_of_birth){
-            document.getElementById('date_of_joiningError').innerHTML= "Date of Joining is is not less than or equal to the Date of Birth!!";
+            document.getElementById('dojError').innerHTML= "Date of Joining is is not less than or equal to the Date of Birth!!";
             return false;
         }else{
             var birthDay = new Date(date_of_birth)
@@ -84,36 +100,50 @@ function createUserForm(){
             var birthDayFullYear = birthDay.getFullYear();
             var birthDayFullMonth = birthDay.getMonth();
             var birthDayFullDate  = birthDay.getDate();
-
+            var dayOfBirth = birthDay.getDay();
+    
 
             var getJoiningYear = userJoiningYear.getFullYear();
             var getJoiningMonth  = userJoiningYear.getMonth();
             var getJoiningDate  = userJoiningYear.getDate();
+            var getDayOfJoning  = userInputYear.getDay();
 
             var getDifference = getJoiningYear - birthDayFullYear;
             var getMonthDifference = getJoiningMonth -birthDayFullMonth;
             var getDateDifference = getJoiningDate - birthDayFullDate;
+            var getDateOfday = getDayOfJoning - dayOfBirth;
+            var month_diff = new Date(getDifference)
 
+            
+            
 
-            if(getDifference<18){
-                document.getElementById('date_of_joiningError').innerHTML= "Age Difference Between Date of birth and Date of Joining Must be equal to grater than 18 Years!! ";
+           if(getDifference<18){
+                document.getElementById('dojError').innerHTML= "Age Difference Between Date of birth and Date of Joining Must be equal to grater than 18 Years!! ";
+                console.log(getDifference);
                 return false;
-            }else if(getMonthDifference<0){
-                document.getElementById('date_of_joiningError').innerHTML= "Age Difference Between Date of birth and Date of Joining Must be equal to grater than 18 Years!! ";
-                return false;
-            }else if(getDateDifference<0){
-                document.getElementById('date_of_joiningError').innerHTML= "Age Difference Between Date of birth and Date of Joining Must be equal to grater than 18 Years!! ";
-                return false;
-            }
-            else{
-                var todayDate = new Date();
-                var getTodayFullDate = todayDate.getFullYear()+'-'+('0' + (todayDate.getMonth()+1)).slice(-2)+'-'+todayDate.getDate();
-                if(date_of_joining>getTodayFullDate){
-                    document.getElementById('date_of_joiningError').innerHTML= "Date not be grater than today!!";
-                    return false;
+            }else if(getDifference==18 && getMonthDifference<=0 && getDateDifference<=0 || getDifference<18 ){
+                console.log(getDifference);
+                document.getElementById('dojError').innerHTML=  "Employee Age should be grater than 18 year!!";
+            }else{
+                if(getMonthDifference<0 || (getMonthDifference == 0 && getDateDifference<0)){
+                    getDifference = parseInt(getDifference) -1;
+                    if(getDifference<18){
+                        document.getElementById('dojError').innerHTML= "Age not be less than 18 Year!!";
+                        return false;
+                    }else{
+                        document.getElementById('dojError').innerHTML= "";
+                    }
                 }else{
-                    document.getElementById('date_of_joiningError').innerHTML= "";
+                    var todayDate = new Date();
+                    var getTodayFullDate = todayDate.getFullYear()+'-'+('0' + (todayDate.getMonth()+1)).slice(-2)+'-'+todayDate.getDate();
+                    if(date_of_joining>getTodayFullDate){
+                        document.getElementById('dojError').innerHTML= "Date not be grater than today!!";
+                        return false;
+                    }else{
+                        document.getElementById('dojError').innerHTML= "";
+                    }
                 }
+             
             }
         }
     }
@@ -233,45 +263,29 @@ function createUserForm(){
 
     const password = document.getElementById('password').value;
     const cPassword = document .getElementById('comfirm_password').value;
-    if(password===""){
+    if(password==""){
         document.getElementById('passwordError').innerHTML ="Kindly fill Employee Password!!";
         return false;
+    }else{
+        document.getElementById('passwordError').innerHTML = "";
+    
     }
 
 
-    if(cPassword===''){
+    if(cPassword==''){
         document.getElementById('confirmError').innerHTML = "kindly confirm  your password";
         return false;
     }else{
-        document.getElementById('passwordError').innerHTML = "";
+        document.getElementById('confirmError').innerHTML = "";
     }
 
 
-    //match password and confirm password
-    if(password!=cPassword){
-        document.getElementById('cPasswordError').innerHTML = "Password does not match";
+    if(cPassword!=password){
+        document.getElementById('confirmError').innerHTML = "kindly confirm  your password";
         return false;
     }else{
-        document.getElementById('passwordError').innerHTML = "";
+        document.getElementById('confirmError').innerHTML = "";
     }
-
-
-
-
-
-
-    const status = document.getElementById('status').value;
-    if(status===""){
-        document.getElementById('statusError').innerHTML ="Kindly Select Employee Status!!";
-        return false;
-    }
-
-    const isadmin = document.getElementById('isadmin').value;
-    if(isadmin===""){
-        document.getElementById('isadminError').innerHTML ="Kindly select Employee Role!!";
-        return false;
-    }
-
 
     const contact = document.getElementById('contact').value;
     if(contact===''){
@@ -280,6 +294,7 @@ function createUserForm(){
     }else{
         document.getElementById('contactError').innerText = "";
     }
+
 
     if(isNaN(contact)){
         document.getElementById('contactError').innerHTML=" ** Must write numbers not characters";
@@ -296,4 +311,24 @@ function createUserForm(){
     }else{
         document.getElementById('contactError').innerText = "";
     }
+
+
+    
+    const status = document.getElementById('status').value;
+    if(status===""){
+        document.getElementById('statusError').innerHTML ="Kindly Select Employee Status!!";
+        return false;
+    }else{
+        document.getElementById('statusError').innerHTML ="";
+    }
+
+    const isadmin = document.getElementById('isadmin').value;
+    if(isadmin===""){
+        document.getElementById('isadminError').innerHTML ="Kindly select Employee Role!!";
+        return false;
+    }else{
+        document.getElementById('isadminError').innerHTML ="";
+    }
+
+
 }

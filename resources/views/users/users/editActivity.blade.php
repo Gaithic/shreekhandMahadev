@@ -26,7 +26,7 @@
 
 @section('content')
 <section class="vh-100">
-   <form action="{{ route('save-activity') }}" method="POST" onsubmit=" return activityCalender()">
+   <form action="{{ route('update-activity', ['id' => $activity->id]) }}" method="POST" onsubmit=" return activityCalender()">
     @csrf
     <div class="container py-5 h-100">
       <div class="h1 text-center mt-3 mb-4 pb-3 text-center">
@@ -56,7 +56,8 @@
                   <div class="card-body">
                     <div class="d-flex flex-row align-items-center" style="padding:10px;">
                       <label style="padding:10px;">Name:</label>
-                     <input type="text" placeholder="Add Activity name" name="name" id="name" class="form-control"/>
+                     <input type="text" placeholder="Add Activity name" name="name" id="name" 
+                     class="form-control" value="{{ $activity->name }}" />
                       <span id="nameError" style="color: red;"></span>
                       <a href="#!" data-mdb-toggle="tooltip" title="Set due date"></a>
                       <div>
@@ -79,7 +80,8 @@
                   <div class="card-body" >
                     <div class="d-flex flex-row align-items-center">
                       <label style="padding:10px;" >Date:</label>
-                     <input type="date" name="datetime" id="datetime"  class="form-control"/>
+                     <input type="text" name="datetime" id="datetime"  
+                     class="form-control" value="{{  $activity->datetime }}"  />
                      <span id='dateError' style="color: red;"></span>
                       <a href="#!" data-mdb-toggle="tooltip" title="Set due date"></a>
                       <div>
@@ -103,7 +105,7 @@
                     <div class="d-flex flex-row align-items-center">
                       <label style="padding:10px;" >Activity:</label>
                       <select name="activityName" id="activity" class="form-control">
-                        <option value="">Select Activity</option>
+                        <option value="">{{ $activity->activityName }}</option>
                         <option value="office">Office</option>
                         <option value="field visit">Field visit</option>
                         <option value="tour">Tour</option>
@@ -133,12 +135,13 @@
                   <div class="card-body">
                     <div class="d-flex flex-row align-items-center">
                       <label style="padding:10px;" >Description:</label>
-                      <input type="text" class="form-control form-control-lg"  name="description" id="description" class="form-control"
+                      <input type="text" class="form-control form-control-lg"  name="description" id="description"
+                       class="form-control" value="{{ $activity->description }}"
                         placeholder="Add Activity description..." >
                         <span id="desciptionError" style="color: red;"></span>
                       <a href="#!" data-mdb-toggle="tooltip" title="Set due date"></i></a>
                       <div style="padding:10px; margin:5px;">
-                        <input type="submit" class="btn btn-warning" value="Add Today Activity" style="font-weight:700; font-size:20px; background: #23af89;"/>
+                        <input type="submit" class="btn btn-warning" value="Update Activity" style="font-weight:700; font-size:20px; background: #23af89;"/>
                       </div>
                     </div>
                   </div>

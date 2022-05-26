@@ -132,7 +132,7 @@
                         <div class="alert alert-danger" role="alert">
                             <small>
                                 <strong >{{ $message }}</strong>
-                            </small>
+                            </small>  
                         </div>
                         @enderror
                         <div style="margin: 5px;">

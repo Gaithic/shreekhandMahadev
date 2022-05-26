@@ -83,7 +83,7 @@
                         <input type="date" class="form-control" name="date_of_birth" id="date_of_birth" id="date_of_birth" value="{{old('date_of_birth')}}">
                         </div>
                         <div style="margin: 5px;">
-                            <span id="date_of_birthError"  style="color: red; font-size:15px; font-weight:700;" ></span>
+                            <span id="dobError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                         </div>
 
                         @error('date_of_birth')
@@ -108,7 +108,7 @@
                         </div>
                         <!-- /.input group -->
                         <div style="margin: 5px;">
-                            <span id="date_of_joiningError"  style="color: red; font-size:15px; font-weight:700;" ></span>
+                            <span id="dojError"  style="color: red; font-size:15px; font-weight:700;" ></span>
                         </div>
 
                         @error('date_of_joining')
@@ -430,7 +430,7 @@
                             <span class="input-group-text"><i class="fa fa-lock"></i></span>
                         </div>
                         <input type="password" class="form-control"
-                            name="comfirm_password"  id="comfirm_password">
+                            name="password_confirmation"  id="comfirm_password">
                         </div>
 
                         <div style="margin: 5px;">

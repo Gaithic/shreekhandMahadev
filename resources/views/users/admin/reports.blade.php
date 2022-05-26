@@ -21,86 +21,202 @@
 @endsection
 
 @section('content')
-
-    <div class="card card-primary" style="display: flex; ">
-      <div class="card-header">
-        <h3 class="card-title">Date picker</h3>
-      </div>
-      <div class="advance-search">
-        <span class="desc">ADVANCED SEARCH</span>
-        <div class="row">
-          <div class="input-field">
-            <div class="input-select">
-              <select data-trigger="" name="choices-single-defaul">
-                <option placeholder="" value="">Accessories</option>
-                <option>Subject b</option>
-                <option>Subject c</option>
-              </select>
-            </div>
-          </div>
-          <div class="input-field">
-            <div class="input-select">
-              <select data-trigger="" name="choices-single-defaul">
-                <option placeholder="" value="">Color</option>
-                <option>Subject b</option>
-                <option>Subject c</option>
-              </select>
-            </div>
-          </div>
-          <div class="input-field">
-            <div class="input-select">
-              <select data-trigger="" name="choices-single-defaul">
-                <option placeholder="" value="">Size</option>
-                <option>Subject b</option>
-                <option>Subject c</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="row second">
-          <div class="input-field">
-            <div class="input-select">
-              <select data-trigger="" name="choices-single-defaul">
-                <option placeholder="" value="">Sale</option>
-                <option>Subject b</option>
-                <option>Subject c</option>
-              </select>
-            </div>
-          </div>
-          <div class="input-field">
-            <div class="input-select">
-              <select data-trigger="" name="choices-single-defaul">
-                <option placeholder="" value="">Time</option>
-                <option>Last time</option>
-                <option>Today</option>
-                <option>This week</option>
-                <option>This month</option>
-                <option>This year</option>
-              </select>
-            </div>
-          </div>
-          <div class="input-field">
-            <div class="input-select">
-              <select data-trigger="" name="choices-single-defaul">
-                <option placeholder="" value="">Type</option>
-                <option>Subject b</option>
-                <option>Subject c</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="row third">
-          <div class="input-field">
-            <div class="result-count">
-              <span>108 </span>results</div>
-            <div class="group-btn">
-              <button class="btn-delete" id="delete">RESET</button>
-              <button class="btn-search">SEARCH</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <div class="container-fluid" style="padding: 10px;">
+      <h2 class="text-center display-4">Search all Reports</h2>
     </div>
 
+  <!-- Main content -->
+  <section class="content">
+      <div class="container-fluid">
+          <form action="enhanced-results.html">
+              <div class="row">
+                  <div class="col-md-10 offset-md-1">
+                      <div class="row">
+                          <div class="col-3">
+                            <div class="form-group">
+                                <label>User Name:</label>
+                                <select class="select2" style="width: 100%;" id="name" name="name">
+                                    <option value="">Select Employee Name</option>
+                                    @foreach ($user as $use)
+                                        <option value="">{{ $use->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                          </div>
+
+                          <div class="col-3">
+                              <div class="form-group">
+                                  <label>Designation:</label>
+                                  <select class="select2" style="width: 100%;">
+                                      <option value="">Select Designation Name</option>
+                                      @foreach ($user as $use)
+                                          <option value="">{{ $use->designation }}</option>
+                                      @endforeach
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="col-3">
+                              <div class="form-group">
+                                  <label>Districts:</label>
+                                  <select class="select2" style="width: 100%;" id="district" name="district_id">
+                                      <option value="">Select District Name</option>
+                                      @foreach ($districts as $district)
+                                        <option value="{{ $district->id }}">{{ $district->districtName }}</option>
+                                      @endforeach
+                                  </select>
+                              </div>
+                          </div>
+
+                          <div class="col-3">
+                            <div class="form-group">
+                                <label>Circles:</label>
+                                <select class="select2" style="width: 100%;" id="circle" name="circle_id">
+                                    <option value="">Select Circle</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                          <div class="form-group">
+                              <label>Division</label>
+                              <select class="select2" style="width: 100%;" id="division" name="division_id">
+                                  <option value="">Select Crcle Name</option>
+                              </select>
+                          </div>
+                      </div>
+
+                      <div class="col-3">
+                        <div class="form-group">
+                            <label>Range</label>
+                            <select class="select2" style="width: 100%;" id="range" name=>
+                                <option value="">search by District</option>
+                            </select>
+                        </div>
+                      </div>
+
+                      <div class="col-3">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" class="form-input" style="width: 100%;"/>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                      <div class="form-group">
+                        <label>End Date</label>
+                        <input type="date" class="form-input" style="width: 100%;"/>
+                    </div>
+                  </div>
+                    </div>
+                     
+                  </div>
+              </div>
+          </form>
+          <div class="row mt-3">
+              <div class="col-md-10 offset-md-1">
+                  <div class="list-group">
+                      <div class="list-group-item">
+                          <div class="row">
+                              <div class="col px-4">
+                                  <div>
+                                      <div class="float-right"></div>
+                                        <h5>Total Number Holiday</h5> 
+                                        <h5>Total Number of Acitity</h5>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                        <div class="list-group-item">
+                         
+                      
+                            <div class="list-group-item">
+                                <div class="row">
+                                  
+                                        <div>
+                                            <div class="card-body">
+                                                <canvas class="chart has-fixed-height" id="reports"></canvas>
+                                            </div>
+                                            
+                                        </div>
+                               
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
 @endsection
+<script src="{{(asset('/asset/ajax/ajax.js'))}}"></script>
+<script src="{{ asset('/asset/admin/plugins/chart.js/Chart.min.js')}}"></script>
+<script>
+    
+    let labels=[];
+    let data=[];
+
+    
+    let districts = '<?php echo json_encode($districts)?>';
+    let jsonDist =JSON.parse(districts);
+
+    for(var i=0;i<jsonDist.length;i++){
+        labels.push(jsonDist[i].districtName);
+        data.push(jsonDist[i].userCount);
+    }
+
+
+
+
+    const ctx = document.getElementById('reports');
+    const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels:labels,
+        datasets: [{
+            label: 'Total Number of Employees Registered Per District',
+            data: data,
+            
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+var getData = function() {
+    var e = document.getElementById("name");
+    var strUser = e.value;
+      $.ajax({
+        url:"{{ route('ajax-circle') }}",
+        success: function(data) {
+
+          myChart.data.labels.push("Label");
+          myChart.data.datasets[0].data.push('set point');
+          
+          myChart.update();
+        }
+      });
+};
+</script>
+

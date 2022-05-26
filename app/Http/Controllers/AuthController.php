@@ -139,7 +139,7 @@ class AuthController extends Controller
                             return redirect()->intended(route('auth.index'))->with('success', 'Welcome to Dashboard');
                         }
                     }else{
-                        return redirect()->intended(route('login-view'))->with('error', 'Password not matches');
+                        return redirect()->intended(route('login-view'))->with('error', 'Password does not matches');
                     }
                 }
            }

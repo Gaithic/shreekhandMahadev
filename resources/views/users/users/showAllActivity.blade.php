@@ -52,10 +52,10 @@
                 <table class="table" id="data-table">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Contact</th>
-                            <th>Status</th>
+                            <th>Activity Name</th>
+                            <th>Activity Description</th>
+                            <th>Activity Purpose</th>
+                            <th>Created On</th>
                             <th>Action</th>
                         </tr>
                     </thead>

@@ -58,61 +58,61 @@
         <!-- /.card-body -->
       </div>
 </div>
-<script src={{ asset('/asset/admin/plugins/chart.js/Chart.min.js')}}></script>
-<script >
-        let districts = '<?php echo json_encode($districts) ?>';
-        let jsonDist = JSON.parse(districts);
-        // console.log(jsonDist);
-        let labels=[];
-        let data=[];
+<script src="{{ asset('/asset/admin/plugins/chart.js/Chart.min.js')}}"></script>
+<script>
 
-        for(var i=0;i<jsonDist.length;i++){
-            labels.push(jsonDist[i].districtName);
-            data.push(jsonDist[i].userCount);
-        }
+let districts = '<?php echo json_encode($districts) ?>';
+let jsonDist = JSON.parse(districts);
+// console.log(jsonDist);
+let labels=[];
+let data=[];
+
+for(var i=0;i<jsonDist.length;i++){
+    labels.push(jsonDist[i].districtName);
+    data.push(jsonDist[i].userCount);
+}
 
 
-        console.log(labels,data);
+console.log(labels,data);
 
-        const ctx = document.getElementById('pie-chart');
-        const myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels:labels,
-                datasets: [{
-                    label: 'Total Number of Employees Registered Per District',
-                    data: data,
-                    
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
+const ctx = document.getElementById('pie-chart');
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels:labels,
+        datasets: [{
+            label: 'Total Number of Employees Registered Per District',
+            data: data,
+            
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
             }
-        });
-       
-</script>
+        }
+    }
+});
 
+</script>
 
 
 @endsection

@@ -157,6 +157,11 @@ class AdminController extends Controller
         $user->division_id = $request->division_id;
         $user->office_address = $request->office_address;
         $user->qualification = $request->qualification;
+        if($request->password){
+            $user->password = Hash::make($request->password);
+        }else{
+            $user->password = $user->password;
+        }
         $user->username = $request->username;
         $user->email = $request->email;
         $user->contact = $request->contact;
